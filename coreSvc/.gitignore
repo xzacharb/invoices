@@ -1,6 +1,4 @@
 # Environments
-*.pyc
-__pycache
 .env.dev
 .venv
 env/
@@ -10,5 +8,4 @@ env.bak/
 venv.bak/
 .env.prod
 .env.prod.db
-models.py
-views.py
+
