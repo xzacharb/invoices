@@ -20,7 +20,7 @@ RUN apt-get update && \
 RUN pip install --upgrade pip
 RUN pip install flake8
 COPY . /usr/src/app/
-RUN flake8 --ignore=E501,F401 ./project_invoices/schema.py
+RUN flake8 --ignore=E501,F401 ./project_auth
 
 # install python dependencies
 COPY ./requirements.txt .
@@ -40,6 +40,7 @@ RUN mkdir -p /home/app
 # create the app user
 # RUN addgroup -S app && adduser -S app -G app
 RUN adduser --system --group app
+# RUN addgroup --system app && adduser --system --group app
 
 # create the appropriate directories
 ENV HOME=/home/app

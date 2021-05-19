@@ -28,7 +28,7 @@ class Cities(db.Model):
     __tablename__ = "cities"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255),unique=True, nullable=False)
+    name = db.Column(db.String(255), unique=True, nullable=False)
     contractors = db.relationship("Contractor", backref=db.backref("cities"))
     invoices = db.relationship("Invoices", backref=db.backref("cities"))
     comp_manag = db.relationship("Company_management", backref=db.backref("cities"))
@@ -50,7 +50,7 @@ class Contractor(db.Model):
     __tablename__ = "contractor"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255),unique=True, nullable=False)
+    name = db.Column(db.String(255), unique=True, nullable=False)
     address = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(), nullable=False)
     # date_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
@@ -61,7 +61,6 @@ class Contractor(db.Model):
     id_city = db.Column(db.Integer, db.ForeignKey('cities.id'))
     invoices = db.relationship("Invoices", backref=db.backref("contractor"))
     management = db.relationship("Company_management", backref=db.backref("contractor"))
-    
 
     def create(self):
         db.session.add(self)
@@ -77,7 +76,6 @@ class Contractor(db.Model):
         self.ico = ico
         self.id_leg_form = id_leg_form
         self.id_city = id_city
-
 
     def __repr__(self):
         return f"{self.id}"
@@ -113,7 +111,7 @@ class Invoices(db.Model):
         self.source = source
         self.id_contractor = id_contractor
         self.id_city = id_city
-    
+
     def __repr__(self):
         return f"{self.id}"
 
@@ -176,7 +174,6 @@ class Company_management(db.Model):
     id_role = db.Column(db.Integer, db.ForeignKey('roles.id'))
     id_contractor = db.Column(db.Integer, db.ForeignKey('contractor.id'))
 
-
     def create(self):
         db.session.add(self)
         db.session.commit()
@@ -192,7 +189,6 @@ class Company_management(db.Model):
         self.id_city = id_city
         self.id_role = id_role
         self.id_contractor = id_contractor
-
 
     def __repr__(self):
         return f"{self.id}"

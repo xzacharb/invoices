@@ -44,26 +44,26 @@ def get_form_by_id(id):
 
 @views.route('/forms/<id>', methods=['PUT'])
 def update_form_by_id(id):
-   data = request.get_json()
-   get_form = Legal_forms.query.get(id)
-   if data.get('name'):
-       get_form.name = data['name']
-   if data.get('short'):
-       get_form.short = data['short']
-   db.session.add(get_form)
-   db.session.commit()
-   forms_schema = Legal_formsSchema(only=['id', 'name', 'short'])
-   form = forms_schema.dump(get_form)
+    data = request.get_json()
+    get_form = Legal_forms.query.get(id)
+    if data.get('name'):
+        get_form.name = data['name']
+    if data.get('short'):
+        get_form.short = data['short']
+    db.session.add(get_form)
+    db.session.commit()
+    forms_schema = Legal_formsSchema(only=['id', 'name', 'short'])
+    form = forms_schema.dump(get_form)
 
-   return make_response(jsonify({"form": form}))
+    return make_response(jsonify({"form": form}))
 
 
 @views.route('/forms/<id>', methods=['DELETE'])
 def delete_form_by_id(id):
-   get_form = Legal_forms.query.get(id)
-   db.session.delete(get_form)
-   db.session.commit()
-   return make_response("", 204)
+    get_form = Legal_forms.query.get(id)
+    db.session.delete(get_form)
+    db.session.commit()
+    return make_response("", 204)
 
 
 @views.route("/cities", methods=['POST'])
@@ -94,25 +94,25 @@ def get_city_by_id(id):
 
 @views.route('/cities/<id>', methods=['PUT'])
 def update_city_by_id(id):
-   data = request.get_json()
-   get_city = Cities.query.get(id)
-   if data.get('name'):
-       get_city.name = data['name']
+    data = request.get_json()
+    get_city = Cities.query.get(id)
+    if data.get('name'):
+        get_city.name = data['name']
 
-   db.session.add(get_city)
-   db.session.commit()
-   city_schema = CitiesSchema(only=['id', 'name'])
-   city = city_schema.dump(get_city)
+    db.session.add(get_city)
+    db.session.commit()
+    city_schema = CitiesSchema(only=['id', 'name'])
+    city = city_schema.dump(get_city)
 
-   return make_response(jsonify({"city": city}))
+    return make_response(jsonify({"city": city}))
 
 
 @views.route('/cities/<id>', methods=['DELETE'])
 def delete_city_by_id(id):
-   get_city = Cities.query.get(id)
-   db.session.delete(get_city)
-   db.session.commit()
-   return make_response("", 204)
+    get_city = Cities.query.get(id)
+    db.session.delete(get_city)
+    db.session.commit()
+    return make_response("", 204)
 
 
 @views.route("/contractor", methods=['POST'])
@@ -143,38 +143,38 @@ def get_contractor_by_id(id):
 
 @views.route('/contractor/<id>', methods=['PUT'])
 def update_contractor_by_id(id):
-   data = request.get_json()
-   get_contractor = Contractor.query.get(id)
-   if data.get('name'):
-       get_contractor.name = data['name']
-   if data.get('address'):
-       get_contractor.address = data['address']
-   if data.get('description'):
-       get_contractor.description = data['description']
-   if data.get('date_created'):
-       get_contractor.date_created = data['date_created']
-   if data.get('source'):
-       get_contractor.source = data['source']
-   if data.get('ico'):
-       get_contractor.ico = data['ico']
-   if data.get('id_leg_form'):
-       get_contractor.id_leg_form = data['id_leg_form']
-   if data.get('id_city'):
-       get_contractor.id_city = data['id_city']
-   db.session.add(get_contractor)
-   db.session.commit()
-   contractor_schema = ContractorSchema(only=['id', 'name', 'address', 'description', 'date_created', 'source', 'ico', 'id_leg_form', 'id_city'])
-   contractor = contractor_schema.dump(get_contractor)
+    data = request.get_json()
+    get_contractor = Contractor.query.get(id)
+    if data.get('name'):
+        get_contractor.name = data['name']
+    if data.get('address'):
+        get_contractor.address = data['address']
+    if data.get('description'):
+        get_contractor.description = data['description']
+    if data.get('date_created'):
+        get_contractor.date_created = data['date_created']
+    if data.get('source'):
+        get_contractor.source = data['source']
+    if data.get('ico'):
+        get_contractor.ico = data['ico']
+    if data.get('id_leg_form'):
+        get_contractor.id_leg_form = data['id_leg_form']
+    if data.get('id_city'):
+        get_contractor.id_city = data['id_city']
+    db.session.add(get_contractor)
+    db.session.commit()
+    contractor_schema = ContractorSchema(only=['id', 'name', 'address', 'description', 'date_created', 'source', 'ico', 'id_leg_form', 'id_city'])
+    contractor = contractor_schema.dump(get_contractor)
 
-   return make_response(jsonify({"contractor": contractor}))
+    return make_response(jsonify({"contractor": contractor}))
 
 
 @views.route('/contractor/<id>', methods=['DELETE'])
 def delete_contractor_by_id(id):
-   get_contractor = Contractor.query.get(id)
-   db.session.delete(get_contractor)
-   db.session.commit()
-   return make_response("", 204)
+    get_contractor = Contractor.query.get(id)
+    db.session.delete(get_contractor)
+    db.session.commit()
+    return make_response("", 204)
 
 
 @views.route("/invoices", methods=['POST'])
@@ -204,40 +204,40 @@ def get_invoice_by_id(id):
 
 @views.route('/invoices/<id>', methods=['PUT'])
 def update_invoice_by_id(id):
-   data = request.get_json()
-   get_invoice = Invoices.query.get(id)
-   if data.get('subject'):
-       get_invoice.subject = data['subject']
-   if data.get('description'):
-       get_invoice.description = data['description']
-   if data.get('price'):
-       get_invoice.price = data['price']
-   if data.get('date1'):
-       get_invoice.date1 = data['date1']
-   if data.get('date2'):
-       get_invoice.date2 = data['date2']
-   if data.get('date3'):
-       get_invoice.date3 = data['date3']
-   if data.get('source'):
-       get_invoice.source = data['source']
-   if data.get('id_contractor'):
-       get_invoice.id_contractor = data['id_contractor']
-   if data.get('id_city'):
-       get_invoice.id_city = data['id_city']
-   db.session.add(get_invoice)
-   db.session.commit()
-   invoices_schema = InvoicesSchema(only=['id', 'subject', 'description', 'price', 'date1', 'date2', 'date3', 'source', 'id_contractor', 'id_city'])
-   invoice = invoices_schema.dump(get_invoice)
+    data = request.get_json()
+    get_invoice = Invoices.query.get(id)
+    if data.get('subject'):
+        get_invoice.subject = data['subject']
+    if data.get('description'):
+        get_invoice.description = data['description']
+    if data.get('price'):
+        get_invoice.price = data['price']
+    if data.get('date1'):
+        get_invoice.date1 = data['date1']
+    if data.get('date2'):
+        get_invoice.date2 = data['date2']
+    if data.get('date3'):
+        get_invoice.date3 = data['date3']
+    if data.get('source'):
+        get_invoice.source = data['source']
+    if data.get('id_contractor'):
+        get_invoice.id_contractor = data['id_contractor']
+    if data.get('id_city'):
+        get_invoice.id_city = data['id_city']
+    db.session.add(get_invoice)
+    db.session.commit()
+    invoices_schema = InvoicesSchema(only=['id', 'subject', 'description', 'price', 'date1', 'date2', 'date3', 'source', 'id_contractor', 'id_city'])
+    invoice = invoices_schema.dump(get_invoice)
 
-   return make_response(jsonify({"invoice": invoice}))
+    return make_response(jsonify({"invoice": invoice}))
 
 
 @views.route('/invoices/<id>', methods=['DELETE'])
 def delete_invoice_by_id(id):
-   get_invoice = Invoices.query.get(id)
-   db.session.delete(get_invoice)
-   db.session.commit()
-   return make_response("", 204)
+    get_invoice = Invoices.query.get(id)
+    db.session.delete(get_invoice)
+    db.session.commit()
+    return make_response("", 204)
 
 
 @views.route("/evaluated", methods=['POST'])
@@ -267,30 +267,30 @@ def get_evaluated_by_id(id):
 
 @views.route('/evaluated/<id>', methods=['PUT'])
 def update_evaluated_by_id(id):
-   data = request.get_json()
-   get_evaluated = Evaluated.query.get(id)
-   if data.get('value'):
-       get_evaluated.value = data['value']
-   if data.get('description'):
-       get_evaluated.description = data['description']
-   if data.get('evaluation'):
-       get_evaluated.evaluation = data['evaluation']
-   if data.get('id_invoice'):
-       get_evaluated.id_invoice = data['id_invoice']
-   db.session.add(get_evaluated)
-   db.session.commit()
-   evaluated_schema = EvaluatedSchema(only=['id', 'value', 'description', 'evaluation', 'id_invoice'])
-   evaluated = evaluated_schema.dump(get_evaluated)
+    data = request.get_json()
+    get_evaluated = Evaluated.query.get(id)
+    if data.get('value'):
+        get_evaluated.value = data['value']
+    if data.get('description'):
+        get_evaluated.description = data['description']
+    if data.get('evaluation'):
+        get_evaluated.evaluation = data['evaluation']
+    if data.get('id_invoice'):
+        get_evaluated.id_invoice = data['id_invoice']
+    db.session.add(get_evaluated)
+    db.session.commit()
+    evaluated_schema = EvaluatedSchema(only=['id', 'value', 'description', 'evaluation', 'id_invoice'])
+    evaluated = evaluated_schema.dump(get_evaluated)
 
-   return make_response(jsonify({"evaluated": evaluated}))
+    return make_response(jsonify({"evaluated": evaluated}))
 
 
 @views.route('/evaluated/<id>', methods=['DELETE'])
 def delete_evaluated_by_id(id):
-   get_evaluated = Evaluated.query.get(id)
-   db.session.delete(get_evaluated)
-   db.session.commit()
-   return make_response("", 204)
+    get_evaluated = Evaluated.query.get(id)
+    db.session.delete(get_evaluated)
+    db.session.commit()
+    return make_response("", 204)
 
 
 @views.route("/roles", methods=['POST'])
@@ -320,24 +320,24 @@ def get_role_by_id(id):
 
 @views.route('/roles/<id>', methods=['PUT'])
 def update_role_by_id(id):
-   data = request.get_json()
-   get_role = Roles.query.get(id)
-   if data.get('role_name'):
-       get_role.name = data['role_name']
-   db.session.add(get_role)
-   db.session.commit()
-   role_schema = RolesSchema(only=['id', 'role_name'])
-   role = role_schema.dump(get_role)
+    data = request.get_json()
+    get_role = Roles.query.get(id)
+    if data.get('role_name'):
+        get_role.name = data['role_name']
+    db.session.add(get_role)
+    db.session.commit()
+    role_schema = RolesSchema(only=['id', 'role_name'])
+    role = role_schema.dump(get_role)
 
-   return make_response(jsonify({"role": role}))
+    return make_response(jsonify({"role": role}))
 
 
 @views.route('/roles/<id>', methods=['DELETE'])
 def delete_role_by_id(id):
-   get_role = Roles.query.get(id)
-   db.session.delete(get_role)
-   db.session.commit()
-   return make_response("", 204)
+    get_role = Roles.query.get(id)
+    db.session.delete(get_role)
+    db.session.commit()
+    return make_response("", 204)
 
 
 @views.route("/management", methods=['POST'])
@@ -367,40 +367,40 @@ def get_management_by_id(id):
 
 @views.route('/management/<id>', methods=['PUT'])
 def update_management_by_id(id):
-   data = request.get_json()
-   get_management = Company_management.query.get(id)
-   if data.get('name'):
-       get_management.name = data['name']
-   if data.get('middle_name'):
-       get_management.middle_name = data['middle_name']
-   if data.get('last_name'):
-       get_management.last_name = data['last_name']
-   if data.get('address'):
-       get_management.address = data['address']
-   if data.get('date_start'):
-       get_management.date_start = data['date_start']
-   if data.get('source'):
-       get_management.source = data['source']
-   if data.get('id_city'):
-       get_management.id_city = data['id_city']
-   if data.get('id_role'):
-       get_management.id_role = data['id_role']
-   if data.get('id_contractor'):
-       get_management.id_contractor = data['id_contractor']
-   db.session.add(get_management)
-   db.session.commit()
-   management_schema = Company_managementSchema(only=['id', 'name', 'middle_name', 'last_name', 'address', 'date_start', 'source', 'id_city', 'id_role', 'id_contractor'])
-   management = management_schema.dump(get_management)
+    data = request.get_json()
+    get_management = Company_management.query.get(id)
+    if data.get('name'):
+        get_management.name = data['name']
+    if data.get('middle_name'):
+        get_management.middle_name = data['middle_name']
+    if data.get('last_name'):
+        get_management.last_name = data['last_name']
+    if data.get('address'):
+        get_management.address = data['address']
+    if data.get('date_start'):
+        get_management.date_start = data['date_start']
+    if data.get('source'):
+        get_management.source = data['source']
+    if data.get('id_city'):
+        get_management.id_city = data['id_city']
+    if data.get('id_role'):
+        get_management.id_role = data['id_role']
+    if data.get('id_contractor'):
+        get_management.id_contractor = data['id_contractor']
+    db.session.add(get_management)
+    db.session.commit()
+    management_schema = Company_managementSchema(only=['id', 'name', 'middle_name', 'last_name', 'address', 'date_start', 'source', 'id_city', 'id_role', 'id_contractor'])
+    management = management_schema.dump(get_management)
 
-   return make_response(jsonify({"management": management}))
+    return make_response(jsonify({"management": management}))
 
 
 @views.route('/management/<id>', methods=['DELETE'])
 def delete_management_by_id(id):
-   get_management = Company_management.query.get(id)
-   db.session.delete(get_management)
-   db.session.commit()
-   return make_response("", 204)
+    get_management = Company_management.query.get(id)
+    db.session.delete(get_management)
+    db.session.commit()
+    return make_response("", 204)
 
 
 @views.route("/government", methods=['POST'])
@@ -424,43 +424,43 @@ def index_government():
 def get_government_by_id(id):
     get_government = Government.query.get(id)
     government_schema = GovernmentSchema()
-    government = governement_schema.dump(get_government)
+    government = government_schema.dump(get_government)
     return make_response(jsonify({"government": government}))
 
 
 @views.route('/government/<id>', methods=['PUT'])
 def update_government_by_id(id):
-   data = request.get_json()
-   get_government = Government.query.get(id)
-   if data.get('name'):
-       get_government.name = data['name']
-   if data.get('middle_name'):
-       get_government.middle_name = data['middle_name']
-   if data.get('last_name'):
-       get_government.last_name = data['last_name']
-   if data.get('address'):
-       get_government.address = data['address']
-   if data.get('date'):
-       get_government.date = data['date']
-   if data.get('politic_part'):
-       get_government.politic_part = data['politic_part']
-   if data.get('source'):
-       get_government.source = data['source']
-   if data.get('id_city'):
-       get_government.id_city = data['id_city']
-   if data.get('id_role'):
-       get_government.id_role = data['id_role']
-   db.session.add(get_government)
-   db.session.commit()
-   government_schema = GovernmentSchema(only=['id', 'name', 'middle_name', 'last_name', 'address', 'date', 'politic_part', 'source', 'id_city', 'id_role'])
-   government = government_schema.dump(get_government)
+    data = request.get_json()
+    get_government = Government.query.get(id)
+    if data.get('name'):
+        get_government.name = data['name']
+    if data.get('middle_name'):
+        get_government.middle_name = data['middle_name']
+    if data.get('last_name'):
+        get_government.last_name = data['last_name']
+    if data.get('address'):
+        get_government.address = data['address']
+    if data.get('date'):
+        get_government.date = data['date']
+    if data.get('politic_part'):
+        get_government.politic_part = data['politic_part']
+    if data.get('source'):
+        get_government.source = data['source']
+    if data.get('id_city'):
+        get_government.id_city = data['id_city']
+    if data.get('id_role'):
+        get_government.id_role = data['id_role']
+    db.session.add(get_government)
+    db.session.commit()
+    government_schema = GovernmentSchema(only=['id', 'name', 'middle_name', 'last_name', 'address', 'date', 'politic_part', 'source', 'id_city', 'id_role'])
+    government = government_schema.dump(get_government)
 
-   return make_response(jsonify({"government": government}))
+    return make_response(jsonify({"government": government}))
 
 
 @views.route('/government/<id>', methods=['DELETE'])
 def delete_government_by_id(id):
-   get_government = Government.query.get(id)
-   db.session.delete(get_government)
-   db.session.commit()
-   return make_response("", 204)
+    get_government = Government.query.get(id)
+    db.session.delete(get_government)
+    db.session.commit()
+    return make_response("", 204)

@@ -1,9 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
 app.config.from_object("project_invoices.config.Config")
 db = SQLAlchemy(app)
+# db = SQLAlchemy()
+# db.init_app(app)
 
 from .views import views
 
@@ -90,7 +93,7 @@ app.register_blueprint(views, url_prefix='/')
 #     id_city = db.Column(db.Integer, db.ForeignKey('cities.id'))
 #     invoices = db.relationship("Invoices", backref=db.backref("contractor"))
 #     management = db.relationship("Company_management", backref=db.backref("contractor"))
-    
+
 
 #     def create(self):
 #         db.session.add(self)
@@ -142,7 +145,7 @@ app.register_blueprint(views, url_prefix='/')
 #         self.source = source
 #         self.id_contractor = id_contractor
 #         self.id_city = id_city
-    
+
 #     def __repr__(self):
 #         return f"{self.id}"
 
@@ -310,7 +313,6 @@ app.register_blueprint(views, url_prefix='/')
 #     source = fields.String(required=True)
 #     id_contractor = fields.Integer(required=True)
 #     id_city = fields.Integer(required=True)
-
 
 
 # class EvaluatedSchema(ModelSchema):
@@ -861,4 +863,3 @@ app.register_blueprint(views, url_prefix='/')
 #     db.session.add(city)
 #     db.session.commit()
 #     return jsonify()
-
