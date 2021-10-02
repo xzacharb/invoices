@@ -1,6 +1,5 @@
 package com.xzacharb.authsvc.service;
 
-import com.xzacharb.authsvc.common.AuthCommonMethods;
 import com.xzacharb.authsvc.common.AuthorizationLevel;
 import com.xzacharb.authsvc.model.UserDao;
 import com.xzacharb.authsvc.model.UserForm;
@@ -14,8 +13,8 @@ public class AuthService {
     AuthRepository authRepository;
 
     public UserDao save(UserForm userForm) {
-        UserDao userDao = new UserDao(userForm, AuthCommonMethods.valueOfAuthorizationLevel(AuthorizationLevel.USER));
-        return authRepository.save(userDao);
+        UserDao newUser = new UserDao(userForm, AuthorizationLevel.USER.byteValueOfLevel());
+        return authRepository.save(newUser);
     }
 
 }
