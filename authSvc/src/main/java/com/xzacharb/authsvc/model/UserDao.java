@@ -15,16 +15,23 @@ public class UserDao {
     @Column
     @JsonIgnore
     private String password;
-
     @Column
-    private String auth_level;
+    private byte auth_level;
 
+    public UserDao() {
+    }
 
-    public String getAuth_level() {
+    public UserDao(UserForm userDto, byte auth_level) {
+        this.username = userDto.getUsername();
+        this.password = userDto.getPassword();
+        this.auth_level = auth_level;
+    }
+
+    public byte getAuth_level() {
         return auth_level;
     }
 
-    public void setAuth_level(String auth_level) {
+    public void setAuth_level(byte auth_level) {
         this.auth_level = auth_level;
     }
 
