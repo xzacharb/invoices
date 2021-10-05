@@ -1,6 +1,7 @@
-package com.xzacharb.authsvc.model;
+package com.xzacharb.authsvc.repository;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.xzacharb.authsvc.model.UserForm;
 
 import javax.persistence.*;
 
@@ -10,8 +11,8 @@ public class UserDao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column
-    private String username;
+    @Column(length=128, unique=true, nullable = false)
+    private String email;
     @Column
     @JsonIgnore
     private String password;
@@ -21,8 +22,14 @@ public class UserDao {
     public UserDao() {
     }
 
+    public UserDao(String username, String password, byte auth_level) {
+        this.email = username;
+        this.password = password;
+        this.auth_level = auth_level;
+    }
+
     public UserDao(UserForm userDto, byte auth_level) {
-        this.username = userDto.getUsername();
+        this.email = userDto.getEmail();
         this.password = userDto.getPassword();
         this.auth_level = auth_level;
     }
@@ -35,12 +42,12 @@ public class UserDao {
         this.auth_level = auth_level;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
