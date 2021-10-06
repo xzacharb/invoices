@@ -9,6 +9,9 @@ pipeline {
         stage("Build") {
             steps {
                 sh "mvn -version"
+                sh "ls"
+                sh "cd authSvc"
+                sh "ls"
                 sh "mvn clean install"
             }
         }
