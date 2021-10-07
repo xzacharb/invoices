@@ -17,11 +17,13 @@ pipeline {
         }
         stage("Dockerizing") {
             steps {
-                docker.image('maven:3.6.3-jdk-8').inside {
-                  git 'https://github.com/xzacharb/invoices.git'
-                  dir('authSvc') {
-                        sh "ls"
-                        sh "mvn clean install"
+                script{
+                    docker.image('maven:3.6.3-jdk-8').inside {
+                        git 'https://github.com/xzacharb/invoices.git'
+                        dir('authSvc') {
+                            sh "ls"
+                            sh "mvn clean install"
+                        }
                     }
                 }
             }
