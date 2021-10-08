@@ -1,2 +1,3 @@
 auth service.
 It stores and maintain uers for application and authorization levels.
+Dockerized
