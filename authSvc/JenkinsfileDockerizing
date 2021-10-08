@@ -1,7 +1,7 @@
 pipeline {
     environment {
         registry = "xzacharb/invoices"
-        registryCredential = 'xzacharb'
+        registryCredential = 'dockerhub'
         dockerImage = 'authSvc'
     }
     agent any
