@@ -1,4 +1,4 @@
-package com.xzacharb.authsvc.common;
+package com.xzacharb.authsvc.model;
 
 public enum AuthorizationLevel {
     ROOT, ADMIN, USER;

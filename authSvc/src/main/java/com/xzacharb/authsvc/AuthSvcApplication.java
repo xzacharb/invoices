@@ -1,18 +1,14 @@
 package com.xzacharb.authsvc;
 
-import com.xzacharb.authsvc.common.AuthorizationLevel;
+import com.xzacharb.authsvc.model.AuthorizationLevel;
 import com.xzacharb.authsvc.repository.AuthRepository;
 import com.xzacharb.authsvc.repository.UserDao;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication()
 public class AuthSvcApplication {
 
 	public static void main(String[] args) {
