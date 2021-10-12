@@ -1,13 +1,13 @@
 package com.xzacharb.coresvc.model.objects;
 
-public class LegaFormObj {
+public class LegalFormObj {
     private String shortCut;
     private String name;
 
-    public LegaFormObj() {
+    public LegalFormObj() {
     }
 
-    public LegaFormObj(String shortCut, String name) {
+    public LegalFormObj(String shortCut, String name) {
         this.shortCut = shortCut;
         this.name = name;
     }

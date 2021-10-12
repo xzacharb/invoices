@@ -14,8 +14,8 @@ public class LegalFormDao {
     public LegalFormDao() {
     }
 
-    public LegalFormDao(String short_cut, String name) {
-        this.short_cut = short_cut;
+    public LegalFormDao(String shortCut, String name) {
+        this.short_cut = shortCut;
         this.name = name;
     }
 

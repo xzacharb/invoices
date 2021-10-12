@@ -3,7 +3,7 @@ package com.xzacharb.coresvc.model.dao;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "person_roles")
 public class RoleDao {
     @Id
     @Column(length = 255)
@@ -12,8 +12,8 @@ public class RoleDao {
     public RoleDao() {
     }
 
-    public RoleDao(String role_name) {
-        this.role_name = role_name;
+    public RoleDao(String roleName) {
+        this.role_name = roleName;
     }
 
     public String getRole_name() {
