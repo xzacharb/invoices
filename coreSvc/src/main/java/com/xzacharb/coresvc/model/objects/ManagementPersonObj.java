@@ -5,7 +5,7 @@ import com.xzacharb.coresvc.model.dao.ManagementTypeDao;
 import java.util.Date;
 
 public class ManagementPersonObj {
-    private String id;
+    private long id;
     private String name;
     private String middleName;
     private String sureName;
@@ -41,7 +41,7 @@ public class ManagementPersonObj {
         this.dateStart = dateStart;
     }
 
-    public ManagementPersonObj(String id, String name, String middleName, String sureName, String address, String source, Date dateStart, RoleObj roleObj, ContractorObj contractorObj, CityObj cityObj, ManagementTypeDao managementTypeDao) {
+    public ManagementPersonObj(long id, String name, String middleName, String sureName, String address, String source, Date dateStart, RoleObj roleObj, ContractorObj contractorObj, CityObj cityObj, ManagementTypeDao managementTypeDao) {
         this.id = id;
         this.name = name;
         this.middleName = middleName;
@@ -55,11 +55,11 @@ public class ManagementPersonObj {
         this.managementTypeDao = managementTypeDao;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
