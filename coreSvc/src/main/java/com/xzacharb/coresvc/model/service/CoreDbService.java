@@ -1,5 +1,6 @@
 package com.xzacharb.coresvc.model.service;
 
+import com.xzacharb.coresvc.model.dao.EvaluatedResultDao;
 import com.xzacharb.coresvc.model.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,10 @@ public class CoreDbService {
 
     @Autowired
     public ManagementTypeRepo managementTypeRepo;
+
+    @Autowired
+    public InvoicesRepo invoicesRepo;
+
+    @Autowired
+    public EvaluatedResultRepo evaluatedResultRepo;
 }
