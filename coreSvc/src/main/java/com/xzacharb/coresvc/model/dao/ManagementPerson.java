@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "management_persons")
-public class ManagementPersonDao {
+public class ManagementPerson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -23,21 +23,21 @@ public class ManagementPersonDao {
     private Date date_start;
     @ManyToOne
     @JoinColumn(name = "management_type_id", referencedColumnName = "type_name")
-    private ManagementTypeDao managementTypeDao;
+    private ManagementType managementType;
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "role_name")
-    private RoleDao roleDao;
+    private Role role;
     @ManyToOne
     @JoinColumn(name = "contractor_id", referencedColumnName = "id")
-    private ContractorDao contractorObjDao;
+    private Contractor contractorObjDao;
     @ManyToOne
     @JoinColumn(name = "city_id", referencedColumnName = "city_name")
-    private CityDao cityObjDao;
+    private City cityObjDao;
 
-    public ManagementPersonDao() {
+    public ManagementPerson() {
     }
 
-    public ManagementPersonDao(long id, String name, String middleName, String sureName, String address, String source, Date dateStart, RoleDao roleDao, ContractorDao contractorObjDao, CityDao cityObjDao, ManagementTypeDao managementTypeDao) {
+    public ManagementPerson(long id, String name, String middleName, String sureName, String address, String source, Date dateStart, Role role, Contractor contractorObjDao, City cityObjDao, ManagementType managementType) {
         this.id = id;
         this.name = name;
         this.middle_name = middleName;
@@ -45,31 +45,31 @@ public class ManagementPersonDao {
         this.address = address;
         this.source = source;
         this.date_start = dateStart;
-        this.roleDao = roleDao;
+        this.role = role;
         this.contractorObjDao = contractorObjDao;
         this.cityObjDao = cityObjDao;
-        this.managementTypeDao = managementTypeDao;
+        this.managementType = managementType;
     }
 
-    public ManagementPersonDao(String name, String middleName, String sureName, String address, String source, Date dateStart, RoleDao roleDao, ContractorDao contractorObjDao, CityDao cityObjDao, ManagementTypeDao managementTypeDao) {
+    public ManagementPerson(String name, String middleName, String sureName, String address, String source, Date dateStart, Role role, Contractor contractorObjDao, City cityObjDao, ManagementType managementType) {
         this.name = name;
         this.middle_name = middleName;
         this.sure_name = sureName;
         this.address = address;
         this.source = source;
         this.date_start = dateStart;
-        this.roleDao = roleDao;
+        this.role = role;
         this.contractorObjDao = contractorObjDao;
         this.cityObjDao = cityObjDao;
-        this.managementTypeDao = managementTypeDao;
+        this.managementType = managementType;
     }
 
-    public ManagementTypeDao getManagementTypeDao() {
-        return managementTypeDao;
+    public ManagementType getManagementTypeDao() {
+        return managementType;
     }
 
-    public void setManagementTypeDao(ManagementTypeDao managementTypeDao) {
-        this.managementTypeDao = managementTypeDao;
+    public void setManagementTypeDao(ManagementType managementType) {
+        this.managementType = managementType;
     }
 
     public long getId() {
@@ -128,27 +128,27 @@ public class ManagementPersonDao {
         this.date_start = date_start;
     }
 
-    public RoleDao getRoleDao() {
-        return roleDao;
+    public Role getRoleDao() {
+        return role;
     }
 
-    public void setRoleDao(RoleDao roleDao) {
-        this.roleDao = roleDao;
+    public void setRoleDao(Role role) {
+        this.role = role;
     }
 
-    public ContractorDao getContractorObjDao() {
+    public Contractor getContractorObjDao() {
         return contractorObjDao;
     }
 
-    public void setContractorObjDao(ContractorDao contractorObjDao) {
+    public void setContractorObjDao(Contractor contractorObjDao) {
         this.contractorObjDao = contractorObjDao;
     }
 
-    public CityDao getCityObjDao() {
+    public City getCityObjDao() {
         return cityObjDao;
     }
 
-    public void setCityObjDao(CityDao cityObjDao) {
+    public void setCityObjDao(City cityObjDao) {
         this.cityObjDao = cityObjDao;
     }
 }

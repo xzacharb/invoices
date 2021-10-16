@@ -4,17 +4,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "legal_forms")
-public class LegalFormDao {
+public class LegalForm {
     @Id
     @Column(length = 128)
     private String short_cut;
     @Column(length = 255, unique = true, nullable = false)
     private String name;
 
-    public LegalFormDao() {
+    public LegalForm() {
     }
 
-    public LegalFormDao(String shortCut, String name) {
+    public LegalForm(String shortCut, String name) {
         this.short_cut = shortCut;
         this.name = name;
     }

@@ -1,5 +1,7 @@
 package com.xzacharb.coresvc.model.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 @Entity
@@ -24,15 +26,16 @@ public class InvoiceDao {
     private String source;
     @ManyToOne
     @JoinColumn(name = "city_id", referencedColumnName = "city_name")
-    private CityDao cityDao;
+    private City city;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "contractor_id", referencedColumnName = "id")
-    private ContractorDao contractorDao;
+    private Contractor contractor;
 
     public InvoiceDao() {
     }
 
-    public InvoiceDao(long id, int price, String subject, String description, String comment, Date date_signed, Date date_published, String source, CityDao cityDao, ContractorDao contractorDao) {
+    public InvoiceDao(long id, int price, String subject, String description, String comment, Date date_signed, Date date_published, String source, City city, Contractor contractor) {
         this.id = id;
         this.price = price;
         this.subject = subject;
@@ -41,11 +44,11 @@ public class InvoiceDao {
         this.date_signed = date_signed;
         this.date_published = date_published;
         this.source = source;
-        this.cityDao = cityDao;
-        this.contractorDao = contractorDao;
+        this.city = city;
+        this.contractor = contractor;
     }
 
-    public InvoiceDao(int price, String subject, String description, String comment, Date date_signed, Date date_published, String source, CityDao cityDao, ContractorDao contractorDao) {
+    public InvoiceDao(int price, String subject, String description, String comment, Date date_signed, Date date_published, String source, City city, Contractor contractor) {
         this.price = price;
         this.subject = subject;
         this.description = description;
@@ -53,8 +56,8 @@ public class InvoiceDao {
         this.date_signed = date_signed;
         this.date_published = date_published;
         this.source = source;
-        this.cityDao = cityDao;
-        this.contractorDao = contractorDao;
+        this.city = city;
+        this.contractor = contractor;
     }
 
     public long getId() {
@@ -121,19 +124,19 @@ public class InvoiceDao {
         this.source = source;
     }
 
-    public CityDao getCityDao() {
-        return cityDao;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityDao(CityDao cityDao) {
-        this.cityDao = cityDao;
+    public void setCity(City city) {
+        this.city = city;
     }
 
-    public ContractorDao getContractorDao() {
-        return contractorDao;
+    public Contractor getContractor() {
+        return contractor;
     }
 
-    public void setContractorDao(ContractorDao contractorDao) {
-        this.contractorDao = contractorDao;
+    public void setContractor(Contractor contractor) {
+        this.contractor = contractor;
     }
 }

@@ -7,15 +7,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cities")
-public class CityDao {
+public class City {
     @Id
     @Column(length = 255)
     private String city_name;
 
-    public CityDao() {
+    public City() {
     }
 
-    public CityDao(String cityName) {
+    public City(String cityName) {
         this.city_name = cityName;
     }
 

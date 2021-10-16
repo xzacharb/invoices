@@ -1,22 +1,26 @@
 package com.xzacharb.coresvc.model.service;
 
+import com.xzacharb.coresvc.common.InvoiceData;
+import com.xzacharb.coresvc.common.TupleData;
 import com.xzacharb.coresvc.model.dao.*;
-import com.xzacharb.coresvc.model.objects.*;
 import com.xzacharb.coresvc.model.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class CoreDbService {
-    private static String QUERY_ISSUES_PER_CITY = "select a from InvoiceDao a join EvaluatedResultDao r on r.invoiceDao = a.id where a.cityDao = ?1";
-    //private static String QUERY_ISSUES_PER_CITY = "select a from InvoiceDao a";
+    private static String QUERY_ISSUES_PER_CITY = "select distinct a from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id where a.city = ?1";
+    private static String QUERY_ISSUES_PER_CITY_COUNT = "select a.city, count(a) from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id group by a.city";
+
+    @Autowired
+    AuthorizationService authorizationService;
+
     @Autowired
     public LegalFormRepo legalFormRepo;
 
@@ -44,43 +48,45 @@ public class CoreDbService {
     @PersistenceContext
     private EntityManager em;
 
-    public Map<String, String> getOverview(AuthToken token) {
+    public Map<String, String> getOverview() {
+        TypedQuery query = em.createQuery(QUERY_ISSUES_PER_CITY_COUNT, Object[].class);
+        List<Object[]> resultList = query.getResultList();
+        List<TupleData<City, Long>> listTupleData =
+                resultList.stream().map(tupleDataArray ->
+                        new TupleData<>((City) tupleDataArray[0], (Long) tupleDataArray[1])
+                ).collect(Collectors.toList());
+        Map cities = new HashMap<>();
+        listTupleData.forEach(tupleData ->
+                cities.put(tupleData.getFirstObject().getCity_name(), tupleData.getSecondNumericObject())
+        );
         Map overview = new HashMap<>();
-        overview.put("token", token.getToken());
+        overview.put("cities", cities);
         overview.put("totalInvoices", invoicesRepo.count());
         overview.put("totalSuspiciousIssues", evaluatedResultRepo.count());
-        overview.put("countOfContractors", contractorRepo.count());
-        overview.put("countOfCities", cityRepo.count());
-        overview.put("countOfLegalForms", legalFormRepo.count());
-        overview.put("countOfManagementPeople", managementPersonRepo.count());
         return overview;
     }
 
-    public List<InvoiceObj> getCityOverview(String city) {
-        CityDao cityDao = cityRepo.findById(city).orElse(null);
-        if (cityDao == null)
-            return new ArrayList<InvoiceObj>();
+    public List<InvoiceData> getCityOverview(String cityName) {
+        City city = cityRepo.findById(cityName).orElse(null);
+        if (city == null)
+            return new ArrayList<InvoiceData>();
         TypedQuery query = em.createQuery(QUERY_ISSUES_PER_CITY, InvoiceDao.class);
-        query.setParameter(1, cityDao);
+        query.setParameter(1, city);
         List<InvoiceDao> resultList = query.getResultList();
 
         return resultList.stream().map(invoiceDao ->
-                new InvoiceObj(
-                        invoiceDao.getId(), invoiceDao.getPrice(), invoiceDao.getSubject(), invoiceDao.getDescription(), invoiceDao.getComment(), invoiceDao.getDate_signed(), invoiceDao.getDate_published(), invoiceDao.getSource(), invoiceDao.getCityDao(), invoiceDao.getContractorDao()
+                new InvoiceData(
+                        invoiceDao.getId(), invoiceDao.getPrice(), invoiceDao.getSubject(), invoiceDao.getDescription(), invoiceDao.getComment(), invoiceDao.getDate_signed(), invoiceDao.getDate_published(), invoiceDao.getSource(), invoiceDao.getCity()
                 )).collect(Collectors.toList());
     }
 
 
-    public List<ManagementPersonDao> getInvoiceOverview(long id) {
+    public List<ManagementPerson> getInvoiceOverview(long id) {
         InvoiceDao invoiceDao = invoicesRepo.findById(id).orElse(null);
         if (invoiceDao == null)
-            return new ArrayList<ManagementPersonDao>();
-        List<ManagementPersonDao> managementPersonDaos = managementPersonRepo.findByContractorObjDao(invoiceDao.getContractorDao());
+            return new ArrayList<ManagementPerson>();
+        List<ManagementPerson> managementPeople = managementPersonRepo.findByContractorObjDao(invoiceDao.getContractor());
 
-        return managementPersonDaos;
-        /*return managementPersonDaos.stream().map(managementPersonDao ->
-                new ManagementPersonObj(
-                        managementPersonDao.getId(), managementPersonDao.getName(), managementPersonDao.getMiddle_name(), managementPersonDao.getSure_name(), managementPersonDao.getAddress(), managementPersonDao.getSource(), managementPersonDao.getDate_start(), new RoleObj(managementPersonDao.getRoleDao().getRole_name()), managementPersonDao.getContractorObjDao(), managementPersonDao.getCityObjDao(), managementPersonDao.getManagementTypeDao()
-                )).collect(Collectors.toList());*/
+        return managementPeople;
     }
 }

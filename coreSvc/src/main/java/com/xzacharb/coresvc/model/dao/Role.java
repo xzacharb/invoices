@@ -4,15 +4,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "person_roles")
-public class RoleDao {
+public class Role {
     @Id
     @Column(length = 255)
     private String role_name;
 
-    public RoleDao() {
+    public Role() {
     }
 
-    public RoleDao(String roleName) {
+    public Role(String roleName) {
         this.role_name = roleName;
     }
 

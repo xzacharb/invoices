@@ -1,39 +1,52 @@
-package com.xzacharb.coresvc.model.objects;
+package com.xzacharb.coresvc.model.dao;
 
+import javax.persistence.*;
 import java.util.Date;
 
-public class ContractorObj {
+@Entity
+@Table(name = "contractors")
+public class Contractor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(length = 255)
     private String name;
+    @Column(length = 255)
     private String address;
+    @Column(length = 512)
     private String description;
+    @Column(length = 255)
     private String source;
+    @Column(length = 64)
     private String ico;
-    private Date dateCreated;
-    private LegalFormObj legaFormObj;
+    @Temporal(TemporalType.DATE)
+    private Date date_created;
+    @ManyToOne
+    @JoinColumn(name = "legal_form_id", referencedColumnName = "short_cut")
+    private LegalForm legalFormId;
 
-    public ContractorObj() {
+    public Contractor() {
     }
 
-    public ContractorObj(String name, String address, String description, String source, String ico, Date dateCreated, LegalFormObj legaFormObj) {
+    public Contractor(String name, String address, String description, String source, String ico, Date dateCreated, LegalForm legalFormDao) {
         this.name = name;
         this.address = address;
         this.description = description;
         this.source = source;
         this.ico = ico;
-        this.dateCreated = dateCreated;
-        this.legaFormObj = legaFormObj;
+        this.date_created = dateCreated;
+        this.legalFormId = legalFormDao;
     }
 
-    public ContractorObj(long id, String name, String address, String description, String source, String ico, Date dateCreated, LegalFormObj legaFormObj) {
+    public Contractor(long id, String name, String address, String description, String source, String ico, Date dateCreated, LegalForm legalFormDao) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.description = description;
         this.source = source;
         this.ico = ico;
-        this.dateCreated = dateCreated;
-        this.legaFormObj = legaFormObj;
+        this.date_created = dateCreated;
+        this.legalFormId = legalFormDao;
     }
 
     public long getId() {
@@ -84,19 +97,19 @@ public class ContractorObj {
         this.ico = ico;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public Date getDate_created() {
+        return date_created;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDate_created(Date date_created) {
+        this.date_created = date_created;
     }
 
-    public LegalFormObj getLegaFormObj() {
-        return legaFormObj;
+    public LegalForm getLegalFormId() {
+        return legalFormId;
     }
 
-    public void setLegaFormObj(LegalFormObj legaFormObj) {
-        this.legaFormObj = legaFormObj;
+    public void setLegalFormId(LegalForm legalFormId) {
+        this.legalFormId = legalFormId;
     }
 }

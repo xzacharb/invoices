@@ -1,18 +1,27 @@
-package com.xzacharb.coresvc.model.objects;
+package com.xzacharb.coresvc.model.dao;
 
-import com.xzacharb.coresvc.model.dao.InvoiceDao;
+import javax.persistence.*;
 
-public class EvaluatedResultObj {
+@Entity
+@Table(name = "evaluation_results")
+public class EvaluatedResult {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(length = 512)
     private String value;
+    @Column(length = 512)
     private String description;
+    @Column(length = 128)
     private String evaluator_name;
+    @ManyToOne
+    @JoinColumn(name = "invoice_id", referencedColumnName = "id")
     private InvoiceDao invoiceDao;
 
-    public EvaluatedResultObj() {
+    public EvaluatedResult() {
     }
 
-    public EvaluatedResultObj(long id, String value, String description, String evaluator_name, InvoiceDao invoiceDao) {
+    public EvaluatedResult(long id, String value, String description, String evaluator_name, InvoiceDao invoiceDao) {
         this.id = id;
         this.value = value;
         this.description = description;
@@ -20,7 +29,7 @@ public class EvaluatedResultObj {
         this.invoiceDao = invoiceDao;
     }
 
-    public EvaluatedResultObj(String value, String description, String evaluator_name, InvoiceDao invoiceDao) {
+    public EvaluatedResult(String value, String description, String evaluator_name, InvoiceDao invoiceDao) {
         this.value = value;
         this.description = description;
         this.evaluator_name = evaluator_name;

@@ -1,6 +1,5 @@
 package com.xzacharb.coresvc.controller;
 
-import com.xzacharb.coresvc.model.objects.AuthToken;
 import com.xzacharb.coresvc.model.service.CoreDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +23,9 @@ public class CoreSvcController {
         return ABOUT;
     }
 
-    @RequestMapping(value = "/overview", method = RequestMethod.POST)
-    public ResponseEntity<?> getOverview(@RequestBody AuthToken token) throws Exception {
-        return ResponseEntity.ok(coreDbService.getOverview(token));
+    @RequestMapping(value = "/overview", method = RequestMethod.GET)
+    public ResponseEntity<?> getOverview() throws Exception {
+        return ResponseEntity.ok(coreDbService.getOverview());
     }
 
     @RequestMapping(value = "/invoices/{city}", method = RequestMethod.GET)
@@ -37,6 +36,5 @@ public class CoreSvcController {
     public ResponseEntity<?> getInvoiceData(@PathVariable long id) {
         return ResponseEntity.ok(coreDbService.getInvoiceOverview(id));
     }
-
 
 }
