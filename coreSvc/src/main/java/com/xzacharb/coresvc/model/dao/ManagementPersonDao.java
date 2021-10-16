@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "management_persons")
-public class ManagementPerson {
+public class ManagementPersonDao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -34,10 +34,10 @@ public class ManagementPerson {
     @JoinColumn(name = "city_id", referencedColumnName = "city_name")
     private City cityObjDao;
 
-    public ManagementPerson() {
+    public ManagementPersonDao() {
     }
 
-    public ManagementPerson(long id, String name, String middleName, String sureName, String address, String source, Date dateStart, Role role, Contractor contractorObjDao, City cityObjDao, ManagementType managementType) {
+    public ManagementPersonDao(long id, String name, String middleName, String sureName, String address, String source, Date dateStart, Role role, Contractor contractorObjDao, City cityObjDao, ManagementType managementType) {
         this.id = id;
         this.name = name;
         this.middle_name = middleName;
@@ -51,7 +51,7 @@ public class ManagementPerson {
         this.managementType = managementType;
     }
 
-    public ManagementPerson(String name, String middleName, String sureName, String address, String source, Date dateStart, Role role, Contractor contractorObjDao, City cityObjDao, ManagementType managementType) {
+    public ManagementPersonDao(String name, String middleName, String sureName, String address, String source, Date dateStart, Role role, Contractor contractorObjDao, City cityObjDao, ManagementType managementType) {
         this.name = name;
         this.middle_name = middleName;
         this.sure_name = sureName;

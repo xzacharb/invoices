@@ -32,9 +32,26 @@ public class CoreSvcController {
     public ResponseEntity<?> getCityOverview(@PathVariable String city) {
         return ResponseEntity.ok(coreDbService.getCityOverview(city));
     }
+
+    @RequestMapping(value = "/invoices/people/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getManagementData(@PathVariable long id) {
+        return ResponseEntity.ok(coreDbService.getManagementPeople(id));
+    }
+
     @RequestMapping(value = "/invoices/city/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getInvoiceData(@PathVariable long id) {
         return ResponseEntity.ok(coreDbService.getInvoiceOverview(id));
+    }
+
+    @RequestMapping(value = "/detection/{city}", method = RequestMethod.GET)
+    public ResponseEntity<?> runDetectionForCity(@PathVariable String city) {
+        coreDbService.runDetection(city);
+        return ResponseEntity.ok("run detection");
+    }
+    @RequestMapping(value = "/evaluation/{city}", method = RequestMethod.GET)
+    public ResponseEntity<?> runEvaluationForCity(@PathVariable String city) {
+        coreDbService.runEvaluation(city);
+        return ResponseEntity.ok("run evaluation");
     }
 
 }

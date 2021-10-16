@@ -1,6 +1,7 @@
 package com.xzacharb.coresvc.model.service;
 
 import com.xzacharb.coresvc.common.InvoiceData;
+import com.xzacharb.coresvc.common.ManagementPerson;
 import com.xzacharb.coresvc.common.TupleData;
 import com.xzacharb.coresvc.model.dao.*;
 import com.xzacharb.coresvc.model.repository.*;
@@ -80,13 +81,47 @@ public class CoreDbService {
                 )).collect(Collectors.toList());
     }
 
-
-    public List<ManagementPerson> getInvoiceOverview(long id) {
+    /**
+     * Get list of management people for current invoice id
+     * @param id invoice id
+     * @return contractor management
+     */
+    public List<ManagementPerson> getManagementPeople(long id) {
         InvoiceDao invoiceDao = invoicesRepo.findById(id).orElse(null);
         if (invoiceDao == null)
-            return new ArrayList<ManagementPerson>();
-        List<ManagementPerson> managementPeople = managementPersonRepo.findByContractorObjDao(invoiceDao.getContractor());
+            return new ArrayList<>();
+        List<ManagementPerson> managementPeople =
+                managementPersonRepo.findByContractorObjDao(invoiceDao.getContractor())
+                        .stream().map(
+                                peopleDao -> new ManagementPerson(peopleDao)
+                        ).collect(Collectors.toList());
 
         return managementPeople;
+    }
+
+    /**
+     * get new invoices from  WS service
+     * @param cityName city Name
+     */
+    public void runDetection(String cityName){
+        City city = cityRepo.findById(cityName).orElse(null);
+        if (city == null)
+            return ;
+
+
+    }
+
+    /**
+     * Run evaluation part to detect suspicious invoices for city
+     * @param cityName city Name
+     */
+    public void runEvaluation(String cityName){
+        City city = cityRepo.findById(cityName).orElse(null);
+        if (city == null)
+            return ;
+    }
+
+    public InvoiceData getInvoiceOverview(long id) {
+        return new InvoiceData(invoicesRepo.findById(id).orElse(null));
     }
 }
