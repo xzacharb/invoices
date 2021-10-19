@@ -1,9 +1,6 @@
 package com.xzacharb.authsvc.model;
 
-import javax.validation.constraints.NotNull;
-
 public class UserForm {
-    @NotNull
     private String email;
     private String password;
 
