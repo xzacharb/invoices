@@ -1,4 +1,4 @@
-package com.xzacharb.coresvc.common;
+package com.xzacharb.coresvc.model.data;
 
 import com.xzacharb.coresvc.model.dao.*;
 

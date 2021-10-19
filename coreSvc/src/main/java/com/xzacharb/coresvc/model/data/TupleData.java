@@ -1,4 +1,4 @@
-package com.xzacharb.coresvc.common;
+package com.xzacharb.coresvc.model.data;
 
 public class TupleData<T,V extends Number> {
     T someObject;

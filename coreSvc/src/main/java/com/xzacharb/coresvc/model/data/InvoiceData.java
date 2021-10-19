@@ -1,4 +1,4 @@
-package com.xzacharb.coresvc.common;
+package com.xzacharb.coresvc.model.data;
 
 import com.xzacharb.coresvc.model.dao.City;
 import com.xzacharb.coresvc.model.dao.Contractor;
@@ -17,6 +17,9 @@ public class InvoiceData {
     private String source;
     private String city;
 
+    public InvoiceData() {
+    }
+
     public InvoiceData(InvoiceDao invoiceObj) {
         this.id = invoiceObj.getId();
         this.price = invoiceObj.getPrice();
@@ -29,7 +32,7 @@ public class InvoiceData {
         this.city = invoiceObj.getCity().getCity_name();
     }
 
-    public InvoiceData(long id, int price, String subject, String description, String comment, Date date_signed, Date date_published, String source, City city) {
+    public InvoiceData(int price, String subject, String description, String comment, Date date_signed, Date date_published, String source, City city) {
         this.id = id;
         this.price = price;
         this.subject = subject;
@@ -39,6 +42,9 @@ public class InvoiceData {
         this.date_published = date_published;
         this.source = source;
         this.city = city.getCity_name();
+    }
+    public InvoiceDao createDao(City city,Contractor contractor){
+        return new InvoiceDao(this.price, this.subject, this.description, this.comment, this.date_signed, this.date_published, this.source, city, contractor);
     }
 
     public long getId() {
@@ -75,5 +81,19 @@ public class InvoiceData {
 
     public String getCity() {
         return city;
+    }
+
+    @Override
+    public String toString() {
+        return "InvoiceData{" +
+                "price=" + price +
+                ", subject='" + subject + '\'' +
+                ", description='" + description + '\'' +
+                ", comment='" + comment + '\'' +
+                ", date_signed=" + date_signed +
+                ", date_published=" + date_published +
+                ", source='" + source + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }

@@ -1,4 +1,6 @@
-package com.xzacharb.coresvc.common;
+package com.xzacharb.coresvc.model.data;
+
+import com.xzacharb.coresvc.common.AuthorizationLevel;
 
 public class UserData {
     private String token;

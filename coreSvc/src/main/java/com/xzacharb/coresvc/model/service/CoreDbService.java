@@ -1,8 +1,8 @@
 package com.xzacharb.coresvc.model.service;
 
-import com.xzacharb.coresvc.common.InvoiceData;
-import com.xzacharb.coresvc.common.ManagementPerson;
-import com.xzacharb.coresvc.common.TupleData;
+import com.xzacharb.coresvc.model.data.InvoiceData;
+import com.xzacharb.coresvc.model.data.ManagementPerson;
+import com.xzacharb.coresvc.model.data.TupleData;
 import com.xzacharb.coresvc.model.dao.*;
 import com.xzacharb.coresvc.model.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class CoreDbService {
-    private static String QUERY_ISSUES_PER_CITY = "select distinct a from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id where a.city = ?1";
-    private static String QUERY_ISSUES_PER_CITY_COUNT = "select a.city, count(a) from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id group by a.city";
+    private static String QUERY_ISSUES_PER_CITY = "select distinct a from InvoiceDao a join EvaluatedResultData r on r.invoiceDao = a.id where a.city = ?1";
+    private static String QUERY_ISSUES_PER_CITY_COUNT = "select a.city, count(a) from InvoiceDao a join EvaluatedResultData r on r.invoiceDao = a.id group by a.city";
 
     @Autowired
     AuthorizationService authorizationService;
@@ -76,9 +76,7 @@ public class CoreDbService {
         List<InvoiceDao> resultList = query.getResultList();
 
         return resultList.stream().map(invoiceDao ->
-                new InvoiceData(
-                        invoiceDao.getId(), invoiceDao.getPrice(), invoiceDao.getSubject(), invoiceDao.getDescription(), invoiceDao.getComment(), invoiceDao.getDate_signed(), invoiceDao.getDate_published(), invoiceDao.getSource(), invoiceDao.getCity()
-                )).collect(Collectors.toList());
+                new InvoiceData(invoiceDao)).collect(Collectors.toList());
     }
 
     /**

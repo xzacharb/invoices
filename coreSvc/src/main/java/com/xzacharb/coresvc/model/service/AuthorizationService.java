@@ -1,7 +1,7 @@
 package com.xzacharb.coresvc.model.service;
 
 import com.xzacharb.coresvc.common.AuthorizationLevel;
-import com.xzacharb.coresvc.common.UserData;
+import com.xzacharb.coresvc.model.data.UserData;
 import org.springframework.stereotype.Service;
 
 @Service
