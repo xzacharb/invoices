@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    result = invoiceParserKosice.scrape_site()
+    result = invoiceParserKosice.runProces()
 
     return result
 

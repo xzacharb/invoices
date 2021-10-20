@@ -4,47 +4,45 @@ Created on Wed Oct 20 09:54:49 2021
 
 @author: xzacharb
 """
-import requests
+
+import time
 import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
-
-URLKosice = 'https://www.zverejnenie.esluzbykosice.sk/Faktura/Index/17270700'
-#kosicePage = requests.get(URLKosice)
-#kosiceSoup = BeautifulSoup(kosicePage.content, "html.parser")
+from selenium.webdriver.common.keys import Keys
 
 
-def get_value():
-    driver = webdriver.Chrome()
-    driver.get(URLKosice)
-    text_field = driver.driver.find_element_by_id('indexGridFooter').find_elements_by_class_name('input-group-btn')
-    print(text_field)
-   # while driver.find_element_by_id('texto_cpf').text == 'Gerando...':
-    #    continue
-   # val = driver.find_element_by_id('texto_cpf').text
-   # driver.quit()
-  #  return val
 
-print(get_value())
+def initDriver(url):
+    driver = webdriver.Chrome('./chromedriver.exe') 
+    options = webdriver.ChromeOptions()
+    options.headless = True
+    options.add_argument("window-size=1920x1080")
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-gpu')
+    # options.add_argument('--disable-dev-shm-usage') # Not used but can be an option
+    driver = webdriver.Chrome(options=options)
+    driver.get(url)
+    return driver
+    
+def gotoNextPage(driver,pageNumber):
+    inputElement = driver.find_element_by_id('currentPageNumber')
+    inputElement.send_keys(pageNumber)
+    parent = inputElement.find_element_by_xpath("..")
+    nextPageButton = parent.find_elements_by_xpath("//button[@title='Prechod na požadovanú stránku']")[0]
+    nextPageButton.click()
+    time.sleep(3)
+    return driver
 
-def nextPage():
-    driver = webdriver.Chrome()
-    driver.get(URLKosice)
-   # driver.find_element_by_id('indexGridFooter').find_elements_by_class_name('input-group-btn')
-    text_field = driver.find_element_by_id('indexGridFooter').find_elements_by_class_name('input-group-btn')
-    print(text_field)
-    text = wait(driver, 10).until(lambda driver: not text_field.text == 'Gerando...' and text_field.text)
-    return text
-
-print(nextPage())
-
-def getPagesNumber():
+def getNaxPageNumber(driver):
+    kosiceSoup = BeautifulSoup(driver)
     pageNumberInput = kosiceSoup.find(id="currentPageNumber")
     currentPageNumbers = pageNumberInput["data-rule-range"][1:-1].split(",")
     currentPageNumbers = list(map(int,currentPageNumbers))
-    return currentPageNumbers
+    return currentPageNumbers[1]
 
-def createPageInvoiceDataFrame():
+def createPageInvoiceDataFrame(driver,invoice):
+    kosiceSoup = BeautifulSoup(driver)
     table = kosiceSoup.find(id='gridData').find('table')
     tableRows = table.find_all('tr')
     res = []
@@ -53,12 +51,21 @@ def createPageInvoiceDataFrame():
         row = [tr.text.strip() for tr in td if tr.text.strip()]
         
         if row:
-            res.append(row)
+            a_series = pd.Series(row, index = invoice.columns)
+            invoice = invoice.append(a_series, ignore_index=True)
+        
+    return invoice
+def runProces():
+    URLKosice = 'https://www.zverejnenie.esluzbykosice.sk/Faktura/Index/17270700'
+    columnNames = ["interne_cislo","datum_prijatia","ico","dodavatel","adresa","predmet","suma","datum_zverejnenia","zverejnil"]
+    invoicesDF = pd.DataFrame(columns = columnNames)
     
+    driver = initDriver(URLKosice)
+    maxPageNumber=5#getNaxPageNumber(driver.page_source)
     
-    df = pd.DataFrame(res, columns=["interne_cislo","datum_prijatia","ico","dodavatel","adresa","predmet","suma","datum_zverejnenia","zverejnil"])
-    return df
-
-
-print(getPagesNumber())
-print(createPageInvoiceDataFrame())
+    for pageNumber in range(1,maxPageNumber):
+        driver = gotoNextPage(driver,maxPageNumber)
+        invoicesDF = createPageInvoiceDataFrame(driver.page_source,invoicesDF)
+    
+    print(invoicesDF)
+    return invoicesDF
