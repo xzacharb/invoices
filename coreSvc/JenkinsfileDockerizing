@@ -1,8 +1,8 @@
 pipeline {
     environment {
-        registry = "xzacharb/auth-svc"
+        registry = "xzacharb/core-svc"
         registryCredential = 'dockerhub'
-        dockerImage = 'authSvc'
+        dockerImage = 'coreSvc'
     }
     agent any
     stages {
@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Building our image') {
           steps {
-                dir('authSvc') {
+                dir('coreSvc') {
                     sh "ls"
                     script {
                         dockerImage = docker.build registry + ":$BUILD_NUMBER"

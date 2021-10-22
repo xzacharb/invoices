@@ -1,0 +1,2 @@
+dont forget to set ip as env var for kafka
+export DOCKER_HOST_IP=192.168.99.100
