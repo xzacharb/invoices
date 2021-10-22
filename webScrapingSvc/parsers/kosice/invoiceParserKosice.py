@@ -10,7 +10,15 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from time import sleep
+from json import dumps
+from kafka import KafkaProducer
+import json
+import unicodedata
 
+producer = KafkaProducer(bootstrap_servers=['192.168.99.100:9092'],
+                         value_serializer=lambda x: 
+                         dumps(x).encode('utf-8'))
 
 
 def initDriver(url):
@@ -41,6 +49,14 @@ def getNaxPageNumber(driver):
     currentPageNumbers = list(map(int,currentPageNumbers))
     return currentPageNumbers[1]
 
+def addDataToKafka(df):
+    record={}
+    for i in df.index:
+        record = json.loads(df.iloc[i].to_json())
+        print(record)
+        producer.send('invoices', value=record)
+        sleep(1)
+    
 def createPageInvoiceDataFrame(driver,invoice):
     kosiceSoup = BeautifulSoup(driver)
     table = kosiceSoup.find(id='gridData').find('table')
@@ -61,11 +77,24 @@ def runProces():
     invoicesDF = pd.DataFrame(columns = columnNames)
     
     driver = initDriver(URLKosice)
-    maxPageNumber=5#getNaxPageNumber(driver.page_source)
+    maxPageNumber=2#getNaxPageNumber(driver.page_source)
     
     for pageNumber in range(1,maxPageNumber):
         driver = gotoNextPage(driver,maxPageNumber)
         invoicesDF = createPageInvoiceDataFrame(driver.page_source,invoicesDF)
     
-    print(invoicesDF)
-    return invoicesDF
+     
+    invoices = invoicesDF[["suma","predmet","interne_cislo","adresa","datum_prijatia","datum_zverejnenia","zverejnil"]]
+    invoices["id"] = ""
+    invoices["datum_prijatia"] = ""
+    invoices["datum_zverejnenia"] = ""
+    invoices["source"] = URLKosice
+    invoices= invoices.rename(columns={"suma": "price", "predmet": "subject", "interne_cislo": "description", "adresa": "comment", "datum_prijatia": "date_signed", "datum_zverejnenia": "date_published", "zverejnil": "city"})
+    print(invoices.columns)
+    invoices['subject'] = invoices['subject'].apply(lambda val: unicodedata.normalize('NFKD', val).encode('ascii', 'ignore').decode())
+    invoices['comment'] = invoices['comment'].apply(lambda val: unicodedata.normalize('NFKD', val).encode('ascii', 'ignore').decode())
+    invoices['price'] = invoices['price'].apply(lambda val: unicodedata.normalize('NFKD', val).encode('ascii', 'ignore').decode())
+    invoices['city'] = invoices['city'].apply(lambda val: unicodedata.normalize('NFKD', val).encode('ascii', 'ignore').decode())
+    invoices['price'] = invoices['price'].apply(lambda x: float(x.replace(' ', '').replace(',', '.')))
+    addDataToKafka(invoices)
+    return {"success":"success"}
