@@ -1,0 +1,34 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">city</th>
+          <th scope="col">id</th>
+          <th scope="col">price</th>
+          <th scope="col">subject</th>
+          <th scope="col">description</th>
+          <th scope="col">comment</th>
+          <th scope="col">date_signed</th>
+          <th scope="col">date_published</th>
+          <th scope="col">source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of invoices">
+          <td>{{ invoice.city }}</td>
+          <td>{{ invoice.id }}</td>
+          <td>{{ invoice.price }}</td>
+          <td>{{ invoice.subject }}</td>
+          <td>{{ invoice.description }}</td>
+          <td>{{ invoice.comment }}</td>
+          <td>{{ invoice.date_signed }}</td>
+          <td>{{ invoice.date_published }}</td>
+          <td>{{ invoice.source }}</td>
+          <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
