@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class CoreDbService {
-    private static String QUERY_ISSUES_PER_CITY = "select distinct a from InvoiceDao a join EvaluatedResultData r on r.invoiceDao = a.id where a.city = ?1";
-    private static String QUERY_ISSUES_PER_CITY_COUNT = "select a.city, count(a) from InvoiceDao a join EvaluatedResultData r on r.invoiceDao = a.id group by a.city";
+    private static String QUERY_ISSUES_PER_CITY = "select distinct a from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id where a.city = ?1";
+    private static String QUERY_ISSUES_PER_CITY_COUNT = "select a.city, count(a) from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id group by a.city";
 
     @Autowired
     AuthorizationService authorizationService;
