@@ -1,5 +1,6 @@
 package com.xzacharb.coresvc.model.service;
 
+import com.xzacharb.coresvc.common.CityCount;
 import com.xzacharb.coresvc.model.data.InvoiceData;
 import com.xzacharb.coresvc.model.data.ManagementPerson;
 import com.xzacharb.coresvc.model.data.TupleData;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class CoreDbService {
     private static String QUERY_ISSUES_PER_CITY = "select distinct a from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id where a.city = ?1";
-    private static String QUERY_ISSUES_PER_CITY_COUNT = "select a.city, count(a) from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id group by a.city";
+    private static String QUERY_ISSUES_PER_CITY_COUNT = "select new com.xzacharb.coresvc.common.CityCount(a.city, count(a)) from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id group by a.city order by count(a) desc";
 
     @Autowired
     AuthorizationService authorizationService;
@@ -49,14 +50,17 @@ public class CoreDbService {
     @PersistenceContext
     private EntityManager em;
 
-    public Map<String, String> getOverview() {
-        TypedQuery query = em.createQuery(QUERY_ISSUES_PER_CITY_COUNT, Object[].class);
-        List<Object[]> resultList = query.getResultList();
-        List<TupleData<City, Long>> listTupleData =
+    public List<CityCount> getOverview() {
+        TypedQuery query = em.createQuery(QUERY_ISSUES_PER_CITY_COUNT, CityCount.class);
+        List<CityCount> resultList = query.getResultList();
+        /*return
+                resultList.stream().collect(
+                Collectors.toMap(Hosting::getId, Hosting::getName));*/
+        return resultList;/*
                 resultList.stream().map(tupleDataArray ->
-                        new TupleData<>((City) tupleDataArray[0], (Long) tupleDataArray[1])
+                        new TupleData<>(((City) tupleDataArray).getCity_name(), (Long) tupleDataArray)
                 ).collect(Collectors.toList());
-        Map cities = new HashMap<>();
+        /*Map cities = new HashMap<>();
         listTupleData.forEach(tupleData ->
                 cities.put(tupleData.getFirstObject().getCity_name(), tupleData.getSecondNumericObject())
         );
@@ -64,7 +68,7 @@ public class CoreDbService {
         overview.put("cities", cities);
         overview.put("totalInvoices", invoicesRepo.count());
         overview.put("totalSuspiciousIssues", evaluatedResultRepo.count());
-        return overview;
+        return overview;*/
     }
 
     public List<InvoiceData> getCityOverview(String cityName) {

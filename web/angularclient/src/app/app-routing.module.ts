@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { InvoiceListComponent } from './invoice-list/invoice-list.component';
+import { InvoiceListComponent } from './components/invoice-list/invoice-list.component';
+import { CitiesListComponent } from './components/cities-list/cities-list.component';
 
 const routes: Routes = [
-  { path: 'invoices', component: InvoiceListComponent }
+  { path: 'invoices', component: InvoiceListComponent },
+  { path: 'invoices/:id', component: InvoiceListComponent },
+  { path: 'cities', component: CitiesListComponent }
 ];
 
 @NgModule({
