@@ -1,23 +1,27 @@
 package com.xzacharb.coresvc.model.data;
 
-import com.xzacharb.coresvc.model.dao.InvoiceDao;
-
-import javax.persistence.*;
+import com.xzacharb.coresvc.model.dao.EvaluatedResult;
 
 public class EvaluatedResultData {
     private String value;
     private String description;
-    private String evaluator_name;
-    private String invoiceId;
+    private String evaluatorName;
+    private long invoiceId;
 
     public EvaluatedResultData() {
     }
 
-    public EvaluatedResultData(String invoiceId, String value, String description, String evaluator_name) {
+    public EvaluatedResultData(long invoiceId, String value, String description, String evaluator_name) {
         this.invoiceId = invoiceId;
         this.value = value;
         this.description = description;
-        this.evaluator_name = evaluator_name;
+        this.evaluatorName = evaluator_name;
+    }
+    public EvaluatedResultData(EvaluatedResult evaluatedResult) {
+        this.invoiceId = evaluatedResult.getInvoiceDao().getId();
+        this.value = evaluatedResult.getValue();
+        this.description = evaluatedResult.getDescription();
+        this.evaluatorName = evaluatedResult.getEvaluator_name();
     }
 
     public String getValue() {
@@ -28,11 +32,11 @@ public class EvaluatedResultData {
         return description;
     }
 
-    public String getEvaluator_name() {
-        return evaluator_name;
+    public String getEvaluatorName() {
+        return evaluatorName;
     }
 
-    public String getInvoiceId() {
+    public long getInvoiceId() {
         return invoiceId;
     }
 }

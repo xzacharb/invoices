@@ -13,21 +13,67 @@
           <th scope="col">comment</th>
           <th scope="col">date_signed</th>
           <th scope="col">date_published</th>
-          <th scope="col">source</th>
+          <th scope="col">zdroj</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let invoice of invoices">
           <td>{{ invoice.subject }}</td>
-          <td>{{ invoice.price }}</td>
-          <td><a href="#">{{invoice.contractorName}}</a></td>
+          <td>{{ invoice.price }}€</td>
+          <td><button type="button" class="btn btn-link" (click)="getContractorData(invoice.contractorId)" >{{invoice.contractorName}}</button></td>
           <td>{{ invoice.description }}</td>
           <td>{{ invoice.comment }}</td>
           <td>{{ invoice.date_signed }}</td>
           <td>{{ invoice.date_published }}</td>
-          <td><a href="{{ invoice.source }}">Source link</a></td>
+          <td><a href="{{ invoice.source }}">zdroj</a></td>
         </tr>
       </tbody>
     </table>
+	</div>
+</div>
+<div class="card" *ngIf="showContractorId >= 0" >
+	<div  class="row">
+	  <div class="col-sm-6">
+		<div class="card">
+		  <div class="card-body">
+			<h5 class="card-title">{{company.name}}</h5>
+			<p class="card-text">{{company.description}} {{company.address}}</p>
+			<a href="{{company.source}}" class="btn btn-primary">source</a>
+		  </div>
+		</div>
+	  </div>
+	  <div class="col-sm-6">
+		<div class="card">
+		  <div class="card-body">
+			<h5 class="card-title">Special title treatment</h5>
+			  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Meno</th>
+          <th scope="col">Rola</th>
+          <th scope="col">adresa</th>
+          <th scope="col">Zaciatok</th>
+          <th scope="col">typ menezmentu</th>
+          <th scope="col">Mesto</th>
+          <th scope="col">source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let person of persons">
+          <td>{{ person.name }} {{ person.middle_name }} {{ person.sure_name }}</td>
+          <td>{{ person.role }}</td>
+          <td>{{ person.address }}</td>
+          <td>{{ person.date_start }}</td>
+          <td>{{ person.managementType }}</td>
+          <td>{{ person.cityObjDao }}</td>
+          <td><a href="{{person.source}}">zdroj</a></td>
+        </tr>
+      </tbody>
+    </table>
+	</div>
+		  </div>
+		</div>
+	  </div>
 	</div>
 </div>

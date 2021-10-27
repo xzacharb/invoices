@@ -23,24 +23,29 @@ public class CoreSvcController {
         return ABOUT;
     }
 
-    @RequestMapping(value = "/overview", method = RequestMethod.GET)
+    @RequestMapping(value = "/invoices/cities", method = RequestMethod.GET)
     public ResponseEntity<?> getOverview() throws Exception {
-        return ResponseEntity.ok(coreDbService.getOverview());
+        return ResponseEntity.ok(coreDbService.getCitiesCount());
     }
 
-    @RequestMapping(value = "/invoices/{city}", method = RequestMethod.GET)
-    public ResponseEntity<?> getCityOverview(@PathVariable String city) {
-        return ResponseEntity.ok(coreDbService.getCityOverview(city));
+    @RequestMapping(value = "/invoices/rules/{city}", method = RequestMethod.GET)
+    public ResponseEntity<?> getCityRules(@PathVariable String city) {
+        return ResponseEntity.ok(coreDbService.getCityRules(city));
     }
 
-    @RequestMapping(value = "/invoices/people/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getManagementData(@PathVariable long id) {
-        return ResponseEntity.ok(coreDbService.getManagementPeople(id));
+    @RequestMapping(value = "/invoices/{city}/{evaluator}", method = RequestMethod.GET)
+    public ResponseEntity<?> getCityRuleInvoices(@PathVariable String city, @PathVariable String evaluator) {
+        return ResponseEntity.ok(coreDbService.getCityRuleInvoices(city, evaluator));
     }
 
-    @RequestMapping(value = "/invoices/city/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getInvoiceData(@PathVariable long id) {
-        return ResponseEntity.ok(coreDbService.getInvoiceOverview(id));
+    @RequestMapping(value = "/invoices/company/{companyId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getContractorData(@PathVariable long companyId) {
+        return ResponseEntity.ok(coreDbService.getContractorData(companyId));
+    }
+
+    @RequestMapping(value = "/invoices/people/{companyId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getCompanyPeople(@PathVariable long companyId) {
+        return ResponseEntity.ok(coreDbService.getCompanyPeople(companyId));
     }
 
     @RequestMapping(value = "/detection/{city}", method = RequestMethod.GET)
@@ -48,6 +53,7 @@ public class CoreSvcController {
         coreDbService.runDetection(city);
         return ResponseEntity.ok("run detection");
     }
+
     @RequestMapping(value = "/evaluation/{city}", method = RequestMethod.GET)
     public ResponseEntity<?> runEvaluationForCity(@PathVariable String city) {
         coreDbService.runEvaluation(city);

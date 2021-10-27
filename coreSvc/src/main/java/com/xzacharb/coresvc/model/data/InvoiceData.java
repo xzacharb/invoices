@@ -16,6 +16,8 @@ public class InvoiceData {
     private Date date_published;
     private String source;
     private String city;
+    private long contractorId;
+    private String contractorName;
 
     public InvoiceData() {
     }
@@ -30,9 +32,11 @@ public class InvoiceData {
         this.date_published = invoiceObj.getDate_published();
         this.source = invoiceObj.getSource();
         this.city = invoiceObj.getCity().getCity_name();
+        this.contractorId = invoiceObj.getContractor().getId();
+        this.contractorName = invoiceObj.getContractor().getName();
     }
 
-    public InvoiceData(int price, String subject, String description, String comment, Date date_signed, Date date_published, String source, City city) {
+    public InvoiceData(long id,int price, String subject, String description, String comment, Date date_signed, Date date_published, String source, City city) {
         this.id = id;
         this.price = price;
         this.subject = subject;
@@ -45,6 +49,14 @@ public class InvoiceData {
     }
     public InvoiceDao createDao(City city,Contractor contractor){
         return new InvoiceDao(this.price, this.subject, this.description, this.comment, this.date_signed, this.date_published, this.source, city, contractor);
+    }
+
+    public long getContractorId() {
+        return contractorId;
+    }
+
+    public String getContractorName() {
+        return contractorName;
     }
 
     public long getId() {

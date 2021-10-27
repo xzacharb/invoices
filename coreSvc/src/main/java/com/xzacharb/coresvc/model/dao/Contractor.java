@@ -1,11 +1,14 @@
 package com.xzacharb.coresvc.model.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "contractors")
 public class Contractor {
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,6 +24,7 @@ public class Contractor {
     private String ico;
     @Temporal(TemporalType.DATE)
     private Date date_created;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "legal_form_id", referencedColumnName = "short_cut")
     private LegalForm legalFormId;

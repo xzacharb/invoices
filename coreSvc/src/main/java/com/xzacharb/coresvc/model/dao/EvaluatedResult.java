@@ -13,6 +13,8 @@ public class EvaluatedResult {
     @Column(length = 512)
     private String description;
     @Column(length = 128)
+    private String evaluator_name_short;
+    @Column(length = 128)
     private String evaluator_name;
     @ManyToOne
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")
@@ -33,11 +35,20 @@ public class EvaluatedResult {
         this.value = value;
         this.description = description;
         this.evaluator_name = evaluator_name;
+        this.evaluator_name_short = evaluator_name.replaceAll("\\s+","");
         this.invoiceDao = invoiceDao;
     }
 
     public long getId() {
         return id;
+    }
+
+    public String getEvaluator_name_short() {
+        return evaluator_name_short;
+    }
+
+    public void setEvaluator_name_short(String evaluator_name_short) {
+        this.evaluator_name_short = evaluator_name_short;
     }
 
     public void setId(long id) {

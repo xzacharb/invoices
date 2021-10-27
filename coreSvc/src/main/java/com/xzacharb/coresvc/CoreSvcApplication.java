@@ -52,12 +52,14 @@ public class CoreSvcApplication {
             InvoiceDao invoiceDao8 = new InvoiceDao(1558850, "invoice sample subject", "invoice sample description", "invoice sample comment", new Date(), new Date(), "invoice sample source", city1, contractor1);
             InvoiceDao invoiceDao9 = new InvoiceDao(1558850, "invoice sample subject", "invoice sample description", "invoice sample comment", null, null, "invoice sample source", city1, contractor2);
             InvoiceDao invoiceDao10 = new InvoiceDao(1558850, "invoice sample subject", "invoice sample description", "invoice sample comment", new Date(), null, "invoice sample source", city3, contractor1);
+            InvoiceDao invoiceDao11 = new InvoiceDao(1558850, "invoice sample subject", "invoice sample description", "invoice sample comment", new Date(), null, "invoice sample source", city2, contractor1);
             EvaluatedResult evaluatedResult1 = new EvaluatedResult("evaluated sample suspicious value1", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name1", invoiceDao1);
             EvaluatedResult evaluatedResult2 = new EvaluatedResult("evaluated sample suspicious value2", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name2", invoiceDao1);
             EvaluatedResult evaluatedResult3 = new EvaluatedResult("evaluated sample suspicious value3", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name", invoiceDao2);
             EvaluatedResult evaluatedResult4 = new EvaluatedResult("evaluated sample suspicious value4", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name1", invoiceDao4);
             EvaluatedResult evaluatedResult5 = new EvaluatedResult("evaluated sample suspicious value5", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name2", invoiceDao4);
             EvaluatedResult evaluatedResult6 = new EvaluatedResult("evaluated sample suspicious value6", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name3", invoiceDao5);
+            EvaluatedResult evaluatedResult7 = new EvaluatedResult("evaluated sample suspicious value7", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name2", invoiceDao11);
 
             repository.roleRepo.save(role1);
             repository.roleRepo.save(role2);
@@ -90,12 +92,14 @@ public class CoreSvcApplication {
             repository.invoicesRepo.save(invoiceDao8);
             repository.invoicesRepo.save(invoiceDao9);
             repository.invoicesRepo.save(invoiceDao10);
+            repository.invoicesRepo.save(invoiceDao11);
             repository.evaluatedResultRepo.save(evaluatedResult1);
             repository.evaluatedResultRepo.save(evaluatedResult2);
             repository.evaluatedResultRepo.save(evaluatedResult3);
             repository.evaluatedResultRepo.save(evaluatedResult4);
             repository.evaluatedResultRepo.save(evaluatedResult5);
             repository.evaluatedResultRepo.save(evaluatedResult6);
+            repository.evaluatedResultRepo.save(evaluatedResult7);
         };
     }
 }
