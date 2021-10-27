@@ -6,14 +6,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { InvoiceListComponent } from './components/invoice-list/invoice-list.component';
 import { InvoiceService } from './services/invoice-service.service';
-import { CityService } from './services/city-service.service';
 import { CitiesListComponent } from './components/cities-list/cities-list.component';
+import { RulesListComponent } from './components/rules-list/rules-list.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InvoiceListComponent,
-    CitiesListComponent
+    CitiesListComponent,
+    RulesListComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

@@ -8,4 +8,6 @@ export class Invoice {
     date_published:string;
     source:string;
     city:string;
+	contractorId:number;
+    contractorName:string;
 }

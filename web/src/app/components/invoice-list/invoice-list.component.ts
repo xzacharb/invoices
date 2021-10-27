@@ -12,11 +12,11 @@ export class InvoiceListComponent implements OnInit {
 
   invoices: Invoice[];
 
-  constructor(private invoiceService: InvoiceService,private route: ActivatedRoute) {
+  constructor(private invoiceService: InvoiceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-	  this.invoiceService.findCityInvoices(this.route.snapshot.paramMap.get('id')).subscribe(data => {
+	  this.invoiceService.findCityInvoices(this.route.snapshot.paramMap.get('ruleName'),this.route.snapshot.paramMap.get('city')).subscribe(data => {
       this.invoices = data;
     });
   }
