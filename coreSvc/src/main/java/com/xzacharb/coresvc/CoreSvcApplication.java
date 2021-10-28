@@ -1,6 +1,7 @@
 package com.xzacharb.coresvc;
 
 import com.xzacharb.coresvc.model.dao.*;
+import com.xzacharb.coresvc.model.dao.Process;
 import com.xzacharb.coresvc.model.service.CoreDbService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -60,7 +61,14 @@ public class CoreSvcApplication {
             EvaluatedResult evaluatedResult5 = new EvaluatedResult("evaluated sample suspicious value5", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name2", invoiceDao4);
             EvaluatedResult evaluatedResult6 = new EvaluatedResult("evaluated sample suspicious value6", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name3", invoiceDao5);
             EvaluatedResult evaluatedResult7 = new EvaluatedResult("evaluated sample suspicious value7", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name2", invoiceDao11);
-
+            Process process1 = new Process(1l, "Proces1 name", "Proces1 descrition", "status1", new Date(), new Date());
+            Process process2 = new Process(1l, "Proces2 name", "Proces2 descrition", "status2", new Date(), new Date());
+            Process process3 = new Process(1l, "Proces3 name", "Proces3 descrition", "status2", new Date(), new Date());
+            Process process4 = new Process(1l, "Proces4 name", "Proces4 descrition", "status3", new Date(), new Date());
+            repository.processesRepo.save(process1);
+            repository.processesRepo.save(process2);
+            repository.processesRepo.save(process3);
+            repository.processesRepo.save(process4);
             repository.roleRepo.save(role1);
             repository.roleRepo.save(role2);
             repository.roleRepo.save(role3);

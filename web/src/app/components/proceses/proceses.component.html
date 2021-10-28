@@ -1,0 +1,67 @@
+<div class="card col-sm-10" >
+	<div *ngIf="!runProceessFrom && !showProcesses">
+	<div class="card-header">
+	   <span>Procesy</span>
+	   </div>
+		<ul class="list-group list-group-flush" >
+			<li class="list-group-item"><button type="button" class="btn btn-primary" (click)="runProceessFrom=true" >Spusti proces</button></li>
+			<li class="list-group-item"><button type="button" class="btn btn-primary" (click)="showProcesses=true" >Zobraz procesy</button></li>
+	  </ul>
+	</div>
+	<div *ngIf="runProceessFrom" >
+	  <div class="card-header">
+	   <span>Spusti proces <button type="button" class="close" aria-label="Close" (click)="runProceessFrom=false">
+					<span aria-hidden="true">&times;</span>
+				</button></span>
+	  </div>
+	  <form [formGroup]="processForm" (ngSubmit)="submitData()" class="col-sm-8">
+	  <div class="form-group">
+		<label for="exampleFormControlSelect1">Proces</label>
+		<select class="form-control" id="exampleFormControlSelect1" formControlName="name">
+		  <option value="detection">Aktualizácia</option>
+		  <option value="evaluation">Vyhodnotenie</option>
+		</select>
+	  </div>
+	  <div class="form-group">
+		<label for="exampleFormControlSelect1">Mesto</label>
+		<select class="form-control" id="exampleFormControlSelect1" formControlName="city">
+		  <option value="all">Všetky mestá</option>
+		  <option *ngFor="let city of cities">{{ city.city }}</option>
+		</select>
+	  </div>
+		<button type="submit" class="btn btn-primary mb-2">Spusti</button>
+
+	  </form>
+	</div>
+	<div>
+	<div class="card-header" *ngIf="showProcesses">
+	   <span>História procesov<button type="button" class="close" aria-label="Close" (click)="showProcesses=false">
+					<span aria-hidden="true">&times;</span>
+				</button></span>
+	<div class="table-responsive" *ngIf="!showPersonDetail">
+			<table class="table table-striped ">
+			  <thead class="thead-dark">
+				<tr>
+				  <th scope="col">ID</th>
+				  <th scope="col">Meno</th>
+				  <th scope="col">Popis</th>
+				  <th scope="col">Status</th>
+				  <th scope="col">Zaciatok</th>
+				  <th scope="col">Koniec</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr *ngFor="let proces of processes">
+				  <td>{{ proces.id }} </td>
+				  <td>{{ proces.name }} </td>
+				  <td>{{ proces.description }} </td>
+				  <td>{{ proces.status }} </td>
+				  <td>{{ proces.date_start | date:'dd.MM.yyyy HH:mm:ss'}} </td>
+				  <td>{{ proces.date_end | date:'dd.MM.yyyy HH:mm:ss'}} </td>
+				</tr>
+			  </tbody>
+			</table>
+		  </div>
+	  </div>
+	</div>
+</div>

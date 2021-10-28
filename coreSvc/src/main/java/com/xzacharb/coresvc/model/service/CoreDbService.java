@@ -2,6 +2,7 @@ package com.xzacharb.coresvc.model.service;
 
 import com.xzacharb.coresvc.common.CityCount;
 import com.xzacharb.coresvc.common.RuleCount;
+import com.xzacharb.coresvc.model.dao.Process;
 import com.xzacharb.coresvc.model.data.InvoiceData;
 import com.xzacharb.coresvc.model.data.ManagementPerson;
 import com.xzacharb.coresvc.model.dao.*;
@@ -38,6 +39,9 @@ public class CoreDbService {
     public CityRepo cityRepo;
 
     @Autowired
+    public ProcessesRepo processesRepo;
+
+    @Autowired
     public ManagementPersonRepo managementPersonRepo;
 
     @Autowired
@@ -62,6 +66,12 @@ public class CoreDbService {
         return query.getResultList();
     }
 
+    public List<Process> getAllProcesses() {
+        List<Process> result = new ArrayList<Process>();
+        processesRepo.findAll().forEach(result::add);
+        return result;
+    }
+
     public Contractor getContractorData(long companyId) {
         return contractorRepo.findById(companyId).orElse(new Contractor());
     }
@@ -77,8 +87,13 @@ public class CoreDbService {
                 ).collect(Collectors.toList());
         return personsList;
     }
-    public ManagementPerson getPersonById(long id){
-person
+
+    public ManagementPerson getPersonById(long id) {
+        ManagementPersonDao personDao = managementPersonRepo.findById(id).orElse(null);
+        if (personDao == null) {
+            return null;
+        }
+        return new ManagementPerson(personDao);
     }
 
     /**
@@ -120,35 +135,13 @@ person
     }
 
     /**
-     * Get list of management people for current invoice id
-     *
-     * @param id invoice id
-     * @return contractor management
-     */
-    /*public List<ManagementPerson> getManagementPeople(long id) {
-        InvoiceDao invoiceDao = invoicesRepo.findById(id).orElse(null);
-        if (invoiceDao == null)
-            return new ArrayList<>();
-        List<ManagementPerson> managementPeople =
-                managementPersonRepo.findByContractorObjDao(invoiceDao.getContractor())
-                        .stream().map(
-                                peopleDao -> new ManagementPerson(peopleDao)
-                        ).collect(Collectors.toList());
-
-        return managementPeople;
-    }*/
-
-    /**
      * get new invoices from  WS service
      *
      * @param cityName city Name
      */
-    public void runDetection(String cityName) {
+    public List<Process> runDetection(String cityName) {
         City city = cityRepo.findById(cityName).orElse(null);
-        if (city == null)
-            return;
-
-
+        return getAllProcesses();
     }
 
     /**
@@ -156,10 +149,10 @@ person
      *
      * @param cityName city Name
      */
-    public void runEvaluation(String cityName) {
+    public List<Process> runEvaluation(String cityName) {
         City city = cityRepo.findById(cityName).orElse(null);
-        if (city == null)
-            return;
+        //if (city == null)
+        return getAllProcesses();
     }
 
     public InvoiceData getInvoiceOverview(long id) {

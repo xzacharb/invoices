@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { InvoiceListComponent } from './components/invoice-list/invoice-list.component';
@@ -9,6 +9,7 @@ import { InvoiceService } from './services/invoice-service.service';
 import { CitiesListComponent } from './components/cities-list/cities-list.component';
 import { RulesListComponent } from './components/rules-list/rules-list.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
+import { ProcesesComponent } from './components/proceses/proceses.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,15 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
     InvoiceListComponent,
     CitiesListComponent,
     RulesListComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    ProcesesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+	ReactiveFormsModule
   ],
   providers: [InvoiceService],
   bootstrap: [AppComponent]

@@ -4,6 +4,7 @@ import { Invoice } from '../objects/invoice';
 import { Rule } from '../objects/rule';
 import { City } from '../objects/city';
 import { Person } from '../objects/person';
+import { Proces } from '../objects/proces';
 import { Company } from '../objects/company';
 import { Observable } from 'rxjs/Observable';
 
@@ -13,9 +14,11 @@ export class InvoiceService {
   private inveicesCities: string;
   private inveicesRules: string;
   private inveicesBase: string;
+  private processes: string;
 
   constructor(private http: HttpClient) {
     this.inveicesBase = 'http://localhost:8080/invoices/';
+    this.processes = 'http://localhost:8080/processes/';
     this.inveicesCities = this.inveicesBase+"cities";
     this.inveicesRules = this.inveicesBase+"rules/";
   }
@@ -41,5 +44,18 @@ export class InvoiceService {
   public findAllCities(): Observable<City[]> {
     return this.http.get<City[]>(this.inveicesCities);
   }
+  public findAllProcesses(): Observable<Proces[]> {
+    return this.http.get<Proces[]>(this.processes+"history");
+  }
+  
+  public runEvaluationProcess(city:string): Observable<Proces[]> {
+	  console.log(this.processes+"evaluation/"+city);
+    return this.http.get<Proces[]>(this.processes+"evaluation/"+city);
+  }
+  public runDetectionProcess(city:string): Observable<Proces[]> {
+	  console.log(this.processes+"detection/"+city);
+    return this.http.get<Proces[]>(this.processes+"detection/"+city);
+  }
+ 
 
 }

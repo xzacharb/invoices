@@ -47,21 +47,24 @@ public class CoreSvcController {
     public ResponseEntity<?> getCompanyPeople(@PathVariable long companyId) {
         return ResponseEntity.ok(coreDbService.getCompanyPeople(companyId));
     }
-    @RequestMapping(value = "/invoices/people/{companyId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getCompanyPeople(@PathVariable long companyId) {
-        return ResponseEntity.ok(coreDbService.getPersonById(companyId));
+    @RequestMapping(value = "/invoices/people/{personId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getPersonById(@PathVariable long personId) {
+        return ResponseEntity.ok(coreDbService.getPersonById(personId));
     }
 
-    @RequestMapping(value = "/detection/{city}", method = RequestMethod.GET)
+    @RequestMapping(value = "/processes/history", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllProcesses() {
+        return ResponseEntity.ok(coreDbService.getAllProcesses());
+    }
+
+    @RequestMapping(value = "/processes/detection/{city}", method = RequestMethod.GET)
     public ResponseEntity<?> runDetectionForCity(@PathVariable String city) {
-        coreDbService.runDetection(city);
-        return ResponseEntity.ok("run detection");
+        return ResponseEntity.ok(coreDbService.runDetection(city));
     }
 
-    @RequestMapping(value = "/evaluation/{city}", method = RequestMethod.GET)
+    @RequestMapping(value = "/processes/evaluation/{city}", method = RequestMethod.GET)
     public ResponseEntity<?> runEvaluationForCity(@PathVariable String city) {
-        coreDbService.runEvaluation(city);
-        return ResponseEntity.ok("run evaluation");
+        return ResponseEntity.ok(coreDbService.runEvaluation(city));
     }
 
 }

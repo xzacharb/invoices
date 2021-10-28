@@ -6,13 +6,13 @@
     <table class="table table-hover">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">subject</th>
-          <th scope="col">price</th>
-          <th scope="col">dodávateľ</th>
-          <th scope="col">description</th>
+          <th scope="col">Predmet</th>
+          <th scope="col">Cena</th>
+          <th scope="col">Dodávateľ</th>
+          <th scope="col">Popis</th>
           <th scope="col">comment</th>
-          <th scope="col">date_signed</th>
-          <th scope="col">date_published</th>
+          <th scope="col">Dátum podpisu</th>
+          <th scope="col">Dátum zverejnenia</th>
           <th scope="col">zdroj</th>
         </tr>
       </thead>
@@ -43,7 +43,7 @@
 			<li class="list-group-item"><span><h6>Adresa:</h6> {{company.address}}</span></li>
 			<li class="list-group-item"><span><h6>Dátum vzniku:</h6> {{company.date_created | date:'dd.MM.yyyy'}}</span></li>
 			<li class="list-group-item"><span><h6>Popis:</h6> {{company.description}}</span></li>
-			<li class="list-group-item"><a href="{{company.source}}" class="btn btn-primary">zdroj</a></li>
+			<li class="list-group-item"><a href="{{company.source}}" >zdroj</a></li>
 		  </ul>
 	  </div>
 	</div>
@@ -51,7 +51,10 @@
   <div class="col-sm-6" *ngIf="showPersons">
 	<div class="card">
 		<div class="card-header">
-			<span><h6>Osoby</h6></span>
+			<span><b>Osoby</b>
+			<button type="button" class="close" aria-label="Close" *ngIf="showPersonDetail" (click)="showPersonDetail=false">
+				<span aria-hidden="true">&times;</span>
+			</button></span>
 		</div>
 	  <div class="card-body">
 		  <div class="table-responsive" *ngIf="!showPersonDetail">
@@ -80,8 +83,8 @@
 			<li class="list-group-item"><span><h6>Rola:</h6> {{personDetail.role}}</span></li>
 			<li class="list-group-item"><span><h6>Mesto:</h6> {{personDetail.cityObjDao}}</span></li>
 			<li class="list-group-item"><span><h6>Typ manazmentu:</h6> {{personDetail.managementType}}</span></li>
-			<li class="list-group-item"><a href="{{personDetail.source}}" class="btn btn-primary">zdroj</a></li>
-			<li class="list-group-item"><button type="button" class="btn btn-link" (click)="showPersonDetail=false" >zavrieť</button></li>
+			<li class="list-group-item"><a href="{{personDetail.source}}" class="btn btn-link">zdroj</a></li>
+			<li class="list-group-item"><button type="button" class="btn btn-primary" (click)="showPersonDetail=false" >zavrieť</button></li>
 		  </ul>
 	  </div>
 	</div>
