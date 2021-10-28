@@ -23,57 +23,67 @@
           <td><button type="button" class="btn btn-link" (click)="getContractorData(invoice.contractorId)" >{{invoice.contractorName}}</button></td>
           <td>{{ invoice.description }}</td>
           <td>{{ invoice.comment }}</td>
-          <td>{{ invoice.date_signed }}</td>
-          <td>{{ invoice.date_published }}</td>
+          <td>{{ invoice.date_signed | date:'dd.MM.yyyy' }}</td>
+          <td>{{ invoice.date_published | date:'dd.MM.yyyy' }}</td>
           <td><a href="{{ invoice.source }}">zdroj</a></td>
         </tr>
       </tbody>
     </table>
 	</div>
 </div>
-<div class="card" *ngIf="showContractorId >= 0" >
-	<div  class="row">
-	  <div class="col-sm-6">
-		<div class="card">
-		  <div class="card-body">
-			<h5 class="card-title">{{company.name}}</h5>
-			<p class="card-text">{{company.description}} {{company.address}}</p>
-			<a href="{{company.source}}" class="btn btn-primary">source</a>
-		  </div>
-		</div>
+<br>
+<div  class="row" *ngIf="showContractorId >= 0">
+  <div class="col-sm-6">
+	<div class="card">
+	  <div class="card-header">
+			<span><h6>Názov dodávateľa:</h6> {{company.name}} <br> {{company.ico}} </span>
 	  </div>
-	  <div class="col-sm-6">
-		<div class="card">
-		  <div class="card-body">
-			<h5 class="card-title">Special title treatment</h5>
-			  <div class="table-responsive">
-    <table class="table table-hover">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Meno</th>
-          <th scope="col">Rola</th>
-          <th scope="col">adresa</th>
-          <th scope="col">Zaciatok</th>
-          <th scope="col">typ menezmentu</th>
-          <th scope="col">Mesto</th>
-          <th scope="col">source</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let person of persons">
-          <td>{{ person.name }} {{ person.middle_name }} {{ person.sure_name }}</td>
-          <td>{{ person.role }}</td>
-          <td>{{ person.address }}</td>
-          <td>{{ person.date_start }}</td>
-          <td>{{ person.managementType }}</td>
-          <td>{{ person.cityObjDao }}</td>
-          <td><a href="{{person.source}}">zdroj</a></td>
-        </tr>
-      </tbody>
-    </table>
-	</div>
-		  </div>
-		</div>
+	  <div class="card-body">
+		  <ul class="list-group list-group-flush">
+			<li class="list-group-item"><span><h6>Adresa:</h6> {{company.address}}</span></li>
+			<li class="list-group-item"><span><h6>Dátum vzniku:</h6> {{company.date_created | date:'dd.MM.yyyy'}}</span></li>
+			<li class="list-group-item"><span><h6>Popis:</h6> {{company.description}}</span></li>
+			<li class="list-group-item"><a href="{{company.source}}" class="btn btn-primary">zdroj</a></li>
+		  </ul>
 	  </div>
 	</div>
+  </div>
+  <div class="col-sm-6" *ngIf="showPersons">
+	<div class="card">
+		<div class="card-header">
+			<span><h6>Osoby</h6></span>
+		</div>
+	  <div class="card-body">
+		  <div class="table-responsive" *ngIf="!showPersonDetail">
+			<table class="table table-striped ">
+			  <thead class="thead-dark">
+				<tr>
+				  <th scope="col">Meno</th>
+				  <th scope="col">Rola</th>
+				  <th scope="col">Detail</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr *ngFor="let person of persons">
+				  <td>{{ person.name }} {{ person.middle_name }} {{ person.sure_name }}</td>
+				  <td>{{ person.role }}</td>
+				  
+				  <td><button type="button" class="btn btn-link" (click)="findPersonById(person.id)" >detail</button></td>
+				</tr>
+			  </tbody>
+			</table>
+		  </div>
+		  <ul class="list-group list-group-flush"*ngIf="showPersonDetail">
+			<li class="list-group-item"><span><h6>Meno:</h6> {{ personDetail.name }} {{ personDetail.middle_name }} {{ personDetail.sure_name }}</span></li>
+			<li class="list-group-item"><span><h6>Adresa:</h6> {{personDetail.address}}</span></li>
+			<li class="list-group-item"><span><h6>Dátum vzniku:</h6> {{personDetail.date_start | date:'dd.MM.yyyy'}}</span></li>
+			<li class="list-group-item"><span><h6>Rola:</h6> {{personDetail.role}}</span></li>
+			<li class="list-group-item"><span><h6>Mesto:</h6> {{personDetail.cityObjDao}}</span></li>
+			<li class="list-group-item"><span><h6>Typ manazmentu:</h6> {{personDetail.managementType}}</span></li>
+			<li class="list-group-item"><a href="{{personDetail.source}}" class="btn btn-primary">zdroj</a></li>
+			<li class="list-group-item"><button type="button" class="btn btn-link" (click)="showPersonDetail=false" >zavrieť</button></li>
+		  </ul>
+	  </div>
+	</div>
+  </div>
 </div>

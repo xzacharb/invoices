@@ -17,6 +17,9 @@ export class InvoiceListComponent implements OnInit {
   company: Company;
   
   showContractorId: number = -1;
+  showPersons:Boolean = false;
+  showPersonDetail:Boolean = false;
+  personDetail:Person;
 
   constructor(private invoiceService: InvoiceService, private route: ActivatedRoute) {
   }
@@ -26,10 +29,17 @@ export class InvoiceListComponent implements OnInit {
       this.invoices = data;
     });
   }
+  findPersonById(id:number){
+	   this.invoiceService.findPersonById(id).subscribe(data => {
+			this.personDetail = data;
+			this.showPersonDetail=true;
+		});
+  }
   getContractorData(contractorId:number){
-	  console.log(contractorId);
 	  if(contractorId == this.showContractorId){
 		  this.showContractorId = -1;
+		  this.showPersons = false;
+		  this.showPersonDetail=false;
 	  }
 	  else{
 		  this.showContractorId = contractorId;
@@ -38,6 +48,13 @@ export class InvoiceListComponent implements OnInit {
 			});
 		  this.invoiceService.findCompanyPersons(contractorId).subscribe(data => {
 				this.persons = data;
+				if(this.persons.length){
+					this.showPersons = true;
+				}
+				else{
+					this.showPersons = false;
+					this.showPersonDetail=false;
+				}
 			});
 	  }
   }

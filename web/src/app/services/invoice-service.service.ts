@@ -28,7 +28,10 @@ export class InvoiceService {
     return this.http.get<Company>(this.inveicesBase+"company/"+companyId);
   }
   public findCompanyPersons(companyId:number): Observable<Person[]> {
-    return this.http.get<Person[]>(this.inveicesBase+"people/"+companyId);
+    return this.http.get<Person[]>(this.inveicesBase+"company/people/"+companyId);
+  }
+  public findPersonById(personId:number): Observable<Person> {
+    return this.http.get<Person>(this.inveicesBase+"people/"+personId);
   }
 
   public findCityInvoices(ruleName:string, city:string): Observable<Invoice[]> {

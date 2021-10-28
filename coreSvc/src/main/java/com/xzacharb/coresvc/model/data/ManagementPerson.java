@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 public class ManagementPerson {
+    private final long id;
     private final String name;
     private final String middle_name;
     private final String sure_name;
@@ -16,7 +17,8 @@ public class ManagementPerson {
     private final String role;
     private final String cityObjDao;
 
-    public ManagementPerson( String name, String middleName, String sureName, String address, String source, Date dateStart, String role, String cityObjDao, String managementType) {
+    public ManagementPerson(long id, String name, String middleName, String sureName, String address, String source, Date dateStart, String role, String cityObjDao, String managementType) {
+        this.id = id;
         this.name = name;
         this.middle_name = middleName;
         this.sure_name = sureName;
@@ -29,6 +31,7 @@ public class ManagementPerson {
     }
 
     public ManagementPerson(ManagementPersonDao managementPersonDao) {
+        this.id = managementPersonDao.getId();
         this.name = managementPersonDao.getName();
         this.middle_name = managementPersonDao.getMiddle_name();
         this.sure_name = managementPersonDao.getSure_name();
@@ -38,6 +41,10 @@ public class ManagementPerson {
         this.role = managementPersonDao.getRoleDao().getRole_name();
         this.cityObjDao = managementPersonDao.getCityObjDao().getCity_name();
         this.managementType = managementPersonDao.getManagementTypeDao().getType_name();
+    }
+
+    public long getId() {
+        return this.id;
     }
 
     public String getName() {

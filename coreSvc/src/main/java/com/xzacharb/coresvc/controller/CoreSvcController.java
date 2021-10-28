@@ -43,9 +43,13 @@ public class CoreSvcController {
         return ResponseEntity.ok(coreDbService.getContractorData(companyId));
     }
 
-    @RequestMapping(value = "/invoices/people/{companyId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/invoices/company/people/{companyId}", method = RequestMethod.GET)
     public ResponseEntity<?> getCompanyPeople(@PathVariable long companyId) {
         return ResponseEntity.ok(coreDbService.getCompanyPeople(companyId));
+    }
+    @RequestMapping(value = "/invoices/people/{companyId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getCompanyPeople(@PathVariable long companyId) {
+        return ResponseEntity.ok(coreDbService.getPersonById(companyId));
     }
 
     @RequestMapping(value = "/detection/{city}", method = RequestMethod.GET)

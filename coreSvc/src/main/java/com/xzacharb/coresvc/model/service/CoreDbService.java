@@ -77,6 +77,9 @@ public class CoreDbService {
                 ).collect(Collectors.toList());
         return personsList;
     }
+    public ManagementPerson getPersonById(long id){
+person
+    }
 
     /**
      * get invoices for city and evaluator
