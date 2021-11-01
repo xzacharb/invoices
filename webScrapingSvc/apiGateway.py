@@ -12,11 +12,12 @@ import json
 app = Flask(__name__)
 
 
-@app.route('/kosice/runproces')
+@app.route('/invoices/ke')
 def runproces():
+    kosiceShortCut="ke"
     #invoiceParserKosice.addDataToKafka()
-    
-    result = invoiceParserKosice.runProces()
+    print("run proces")
+    result = invoiceParserKosice.runProces(kosiceShortCut)
     return result
 
 

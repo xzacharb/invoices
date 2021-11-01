@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "evaluation_results")
-public class EvaluatedResult {
+public final class EvaluatedResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -13,7 +13,7 @@ public class EvaluatedResult {
     @Column(length = 512)
     private String description;
     @Column(length = 128)
-    private String evaluator_name_short;
+    private String evaluatorNameShort;
     @Column(length = 128)
     private String evaluator_name;
     @ManyToOne
@@ -35,7 +35,7 @@ public class EvaluatedResult {
         this.value = value;
         this.description = description;
         this.evaluator_name = evaluator_name;
-        this.evaluator_name_short = evaluator_name.replaceAll("\\s+","");
+        this.evaluatorNameShort = evaluator_name.replaceAll("\\s+","");
         this.invoiceDao = invoiceDao;
     }
 
@@ -43,12 +43,12 @@ public class EvaluatedResult {
         return id;
     }
 
-    public String getEvaluator_name_short() {
-        return evaluator_name_short;
+    public String getEvaluatorNameShort() {
+        return evaluatorNameShort;
     }
 
-    public void setEvaluator_name_short(String evaluator_name_short) {
-        this.evaluator_name_short = evaluator_name_short;
+    public void setEvaluatorNameShort(String evaluatorNameShort) {
+        this.evaluatorNameShort = evaluatorNameShort;
     }
 
     public void setId(long id) {

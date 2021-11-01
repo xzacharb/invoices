@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 @Entity
 @Table(name = "invoices")
-public class InvoiceDao {
+public final class InvoiceDao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -25,7 +25,7 @@ public class InvoiceDao {
     @Column
     private String source;
     @ManyToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "city_name")
+    @JoinColumn(name = "city_id", referencedColumnName = "city_short")
     private City city;
     @JsonIgnore
     @ManyToOne

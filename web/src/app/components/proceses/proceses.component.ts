@@ -33,7 +33,8 @@ export class ProcesesComponent implements OnInit {
 	});
   }
   submitData(){
-	  let city:string =this.processForm.value.city ;	 
+	  let city:string =this.processForm.value.city ;
+	  
 	  if(this.processForm.value.name == 'detection'){
 		  this.invoiceService.runDetectionProcess(city).subscribe();
 	  }

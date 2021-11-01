@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "processes")
-public class Process {
+public final class Process {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -26,7 +26,7 @@ public class Process {
     public Process() {
     }
 
-    public Process(long id, String name, String description, String status, Date date_start, Date date_end) {
+    public Process(String name, String description, String status, Date date_start, Date date_end) {
         this.id = id;
         this.name = name;
         this.description = description;

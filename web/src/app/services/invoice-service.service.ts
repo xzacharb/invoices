@@ -41,8 +41,11 @@ export class InvoiceService {
     return this.http.get<Invoice[]>(this.inveicesBase+city+"/"+ruleName);
   }
   
+  public findAllAlertCities(): Observable<City[]> {
+    return this.http.get<City[]>(this.inveicesBase+"cities/alert");
+  }
   public findAllCities(): Observable<City[]> {
-    return this.http.get<City[]>(this.inveicesCities);
+    return this.http.get<City[]>(this.inveicesBase+"cities");
   }
   public findAllProcesses(): Observable<Proces[]> {
     return this.http.get<Proces[]>(this.processes+"history");

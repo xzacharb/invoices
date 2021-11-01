@@ -2,7 +2,7 @@ package com.xzacharb.coresvc;
 
 import com.xzacharb.coresvc.model.dao.*;
 import com.xzacharb.coresvc.model.dao.Process;
-import com.xzacharb.coresvc.model.service.CoreDbService;
+import com.xzacharb.coresvc.service.CoreDbService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,10 +28,11 @@ public class CoreSvcApplication {
             Contractor contractor2 = new Contractor("sample name2", "sample address", "sample description", "sample source", "sample ico2", new Date(), lf2);
             Contractor contractor3 = new Contractor("sample name3", "sample address", "sample description", "sample source", "sample ico3", new Date(), lf1);
             Contractor contractor4 = new Contractor("sample name4", "sample address", "sample description", "sample source", "", new Date(), lf2);
-            City city1 = new City("sampleCity1");
-            City city2 = new City("sampleCity2");
-            City city3 = new City("sampleCity3");
-            City city4 = new City("sampleCity4");
+            City city1 = new City("s1","sample City 1");
+            City city2 = new City("s2","sample City 2");
+            City city3 = new City("s3","sample City 3");
+            City city4 = new City("s4","sample City 4");
+            City city5 = new City("ke","kosice");
             Role role1 = new Role("sampleName1");
             Role role2 = new Role("sampleName2");
             Role role3 = new Role("sampleName3");
@@ -61,10 +62,10 @@ public class CoreSvcApplication {
             EvaluatedResult evaluatedResult5 = new EvaluatedResult("evaluated sample suspicious value5", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name2", invoiceDao4);
             EvaluatedResult evaluatedResult6 = new EvaluatedResult("evaluated sample suspicious value6", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name3", invoiceDao5);
             EvaluatedResult evaluatedResult7 = new EvaluatedResult("evaluated sample suspicious value7", "evaluated sample suspicious description",  "evaluated sample suspicious evaluator_name2", invoiceDao11);
-            Process process1 = new Process(1l, "Proces1 name", "Proces1 descrition", "status1", new Date(), new Date());
-            Process process2 = new Process(1l, "Proces2 name", "Proces2 descrition", "status2", new Date(), new Date());
-            Process process3 = new Process(1l, "Proces3 name", "Proces3 descrition", "status2", new Date(), new Date());
-            Process process4 = new Process(1l, "Proces4 name", "Proces4 descrition", "status3", new Date(), new Date());
+            Process process1 = new Process( "Proces1 name", "Proces1 descrition", "status1", new Date(), new Date());
+            Process process2 = new Process( "Proces2 name", "Proces2 descrition", "status2", new Date(), new Date());
+            Process process3 = new Process( "Proces3 name", "Proces3 descrition", "status2", new Date(), new Date());
+            Process process4 = new Process( "Proces4 name", "Proces4 descrition", "status3", new Date(), new Date());
             repository.processesRepo.save(process1);
             repository.processesRepo.save(process2);
             repository.processesRepo.save(process3);
@@ -78,6 +79,7 @@ public class CoreSvcApplication {
             repository.cityRepo.save(city2);
             repository.cityRepo.save(city3);
             repository.cityRepo.save(city4);
+            repository.cityRepo.save(city5);
             repository.contractorRepo.save(contractor1);
             repository.contractorRepo.save(contractor2);
             repository.contractorRepo.save(contractor3);

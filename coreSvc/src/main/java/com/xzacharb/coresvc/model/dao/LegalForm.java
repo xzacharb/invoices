@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "legal_forms")
-public class LegalForm {
+public final class LegalForm {
     @Id
     @Column(length = 128)
     private String short_cut;

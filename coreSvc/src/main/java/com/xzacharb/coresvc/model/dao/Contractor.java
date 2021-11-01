@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "contractors")
-public class Contractor {
+public final class Contractor {
     @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,15 @@ public class Contractor {
     private LegalForm legalFormId;
 
     public Contractor() {
+    }
+
+    public Contractor(String name, String address, String description, String source, String ico, Date dateCreated) {
+        this.name = name;
+        this.address = address;
+        this.description = description;
+        this.source = source;
+        this.ico = ico;
+        this.date_created = dateCreated;
     }
 
     public Contractor(String name, String address, String description, String source, String ico, Date dateCreated, LegalForm legalFormDao) {

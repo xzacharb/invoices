@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "management_types")
-public class ManagementType {
+public final class ManagementType {
     @Id
     @Column(length = 255)
     private String type_name;

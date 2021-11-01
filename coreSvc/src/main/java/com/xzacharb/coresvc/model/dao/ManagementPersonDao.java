@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "management_persons")
-public class ManagementPersonDao {
+public final class ManagementPersonDao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -31,7 +31,7 @@ public class ManagementPersonDao {
     @JoinColumn(name = "contractor_id", referencedColumnName = "id")
     private Contractor contractorObjDao;
     @ManyToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "city_name")
+    @JoinColumn(name = "city_id", referencedColumnName = "city_short")
     private City cityObjDao;
 
     public ManagementPersonDao() {

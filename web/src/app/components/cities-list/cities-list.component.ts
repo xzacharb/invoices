@@ -14,7 +14,7 @@ export class CitiesListComponent implements OnInit {
   }
 
   ngOnInit() {
-	  this.invoiceService.findAllCities().subscribe(data => {
+	  this.invoiceService.findAllAlertCities().subscribe(data => {
       this.cities = data;
 	  });
   }

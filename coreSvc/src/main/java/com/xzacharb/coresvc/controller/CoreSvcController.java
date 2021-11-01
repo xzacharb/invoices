@@ -1,6 +1,6 @@
 package com.xzacharb.coresvc.controller;
 
-import com.xzacharb.coresvc.model.service.CoreDbService;
+import com.xzacharb.coresvc.service.CoreDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,19 +23,23 @@ public class CoreSvcController {
         return ABOUT;
     }
 
+    @RequestMapping(value = "/invoices/cities/alert", method = RequestMethod.GET)
+    public ResponseEntity<?> getalertCities() throws Exception {
+        return ResponseEntity.ok(coreDbService.getAlertCitiesCount());
+    }
     @RequestMapping(value = "/invoices/cities", method = RequestMethod.GET)
     public ResponseEntity<?> getOverview() throws Exception {
         return ResponseEntity.ok(coreDbService.getCitiesCount());
     }
 
-    @RequestMapping(value = "/invoices/rules/{city}", method = RequestMethod.GET)
-    public ResponseEntity<?> getCityRules(@PathVariable String city) {
-        return ResponseEntity.ok(coreDbService.getCityRules(city));
+    @RequestMapping(value = "/invoices/rules/{cityShort}", method = RequestMethod.GET)
+    public ResponseEntity<?> getCityRules(@PathVariable String cityShort) {
+        return ResponseEntity.ok(coreDbService.getCityRules(cityShort));
     }
 
-    @RequestMapping(value = "/invoices/{city}/{evaluator}", method = RequestMethod.GET)
-    public ResponseEntity<?> getCityRuleInvoices(@PathVariable String city, @PathVariable String evaluator) {
-        return ResponseEntity.ok(coreDbService.getCityRuleInvoices(city, evaluator));
+    @RequestMapping(value = "/invoices/{cityShort}/{evaluator}", method = RequestMethod.GET)
+    public ResponseEntity<?> getCityRuleInvoices(@PathVariable String cityShort, @PathVariable String evaluator) {
+        return ResponseEntity.ok(coreDbService.getCityRuleInvoices(cityShort, evaluator));
     }
 
     @RequestMapping(value = "/invoices/company/{companyId}", method = RequestMethod.GET)
@@ -57,14 +61,16 @@ public class CoreSvcController {
         return ResponseEntity.ok(coreDbService.getAllProcesses());
     }
 
-    @RequestMapping(value = "/processes/detection/{city}", method = RequestMethod.GET)
-    public ResponseEntity<?> runDetectionForCity(@PathVariable String city) {
-        return ResponseEntity.ok(coreDbService.runDetection(city));
+    @RequestMapping(value = "/processes/detection/{cityShort}", method = RequestMethod.GET)
+    public ResponseEntity<?> runDetectionForCity(@PathVariable String cityShort) throws Exception {
+        coreDbService.runDetection(cityShort);
+        return ResponseEntity.ok("ok");
     }
 
-    @RequestMapping(value = "/processes/evaluation/{city}", method = RequestMethod.GET)
-    public ResponseEntity<?> runEvaluationForCity(@PathVariable String city) {
-        return ResponseEntity.ok(coreDbService.runEvaluation(city));
+    @RequestMapping(value = "/processes/evaluation/{cityShort}", method = RequestMethod.GET)
+    public ResponseEntity<?> runEvaluationForCity(@PathVariable String cityShort) {
+        coreDbService.runEvaluation(cityShort);
+        return ResponseEntity.ok("ok");
     }
 
 }
