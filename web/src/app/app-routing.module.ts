@@ -15,7 +15,8 @@ const routes: Routes = [
   { path: 'cities', component: CitiesListComponent },
   { path: 'statistics', component: StatisticsComponent },
   { path: '', component: HomeComponent },
-  { path: 'processes', component: ProcesesComponent }
+  { path: 'processes', component: ProcesesComponent },
+  { path: 'processes/:shortName', component: ProcesesComponent }
 ];
 
 @NgModule({

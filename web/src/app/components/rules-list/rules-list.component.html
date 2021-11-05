@@ -2,7 +2,8 @@
   <div class="card-header">
     Pravidlá
   </div>
-  <a *ngFor="let rule of rules" routerLink="/companies/{{rule.ruleNameShort}}/{{rule.cityShort}}" class="list-group-item list-group-item-action flex-column align-items-start">
+  <a *ngFor="let rule of rules" routerLink="/companies/{{rule.ruleNameShort}}/{{rule.cityShort}}"
+     class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{rule.ruleName}}</h5>
       <small class="text-muted">{{rule.count}}</small>
@@ -10,5 +11,5 @@
     <p class="mb-1">{{rule.ruleDescription}}</p>
     <small class="text-muted">{{rule.city}}</small>
   </a>
-  
+  <br>
 </div>

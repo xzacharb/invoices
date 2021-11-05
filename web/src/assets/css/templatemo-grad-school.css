@@ -82,7 +82,7 @@ p {
 
 a.menu-link { display: none; }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 550px) {
   a.menu-link {
     float: right;
     display: block;
@@ -278,7 +278,7 @@ a.menu-link { display: none; }
     border: 2px solid #f5a425;
 }
 
-@media (max-width: 950px) {
+@media (max-width: 550px) {
   .main-nav li:hover a,
   .main-nav li.active a {
     border: 2px solid transparent;
@@ -1561,7 +1561,7 @@ footer p a:hover {
   .features-post { border-left: 0 }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 550px) {
   .main-menu { padding-right: 0!important; }
   .main-header .logo {
     line-height: 73px;
@@ -1585,13 +1585,12 @@ footer p a:hover {
   }
 }
 
-@media screen and (max-width: 950px) and (max-height: 400px) {
+@media screen and (max-width: 550px) and (max-height: 400px) {
   nav[role="navigation"].active {
     max-height: calc(80px + 100vh);
     overflow-y: auto;
   }
 }
-
 @media screen and (max-width: 767px) {
   footer p {
     font-size: 12px;
