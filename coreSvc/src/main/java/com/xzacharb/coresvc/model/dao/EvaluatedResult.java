@@ -1,6 +1,7 @@
 package com.xzacharb.coresvc.model.dao;
 
 import javax.persistence.*;
+import java.util.Locale;
 
 @Entity
 @Table(name = "evaluation_results")
@@ -19,6 +20,9 @@ public final class EvaluatedResult {
     @ManyToOne
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")
     private InvoiceDao invoiceDao;
+    @ManyToOne
+    @JoinColumn(name = "contractor_id", referencedColumnName = "id")
+    private Contractor contractorId;
 
     public EvaluatedResult() {
     }
@@ -29,14 +33,16 @@ public final class EvaluatedResult {
         this.description = description;
         this.evaluator_name = evaluator_name;
         this.invoiceDao = invoiceDao;
+        this.contractorId = invoiceDao.getContractor();
     }
 
     public EvaluatedResult(String value, String description, String evaluator_name, InvoiceDao invoiceDao) {
         this.value = value;
         this.description = description;
         this.evaluator_name = evaluator_name;
-        this.evaluatorNameShort = evaluator_name.replaceAll("\\s+","");
+        this.evaluatorNameShort = evaluator_name.toLowerCase(Locale.ROOT).replaceAll("\\s+","");
         this.invoiceDao = invoiceDao;
+        this.contractorId = invoiceDao.getContractor();
     }
 
     public long getId() {
@@ -81,6 +87,14 @@ public final class EvaluatedResult {
 
     public InvoiceDao getInvoiceDao() {
         return invoiceDao;
+    }
+
+    public Contractor getContractorId() {
+        return contractorId;
+    }
+
+    public void setContractorId(Contractor contractorId) {
+        this.contractorId = contractorId;
     }
 
     public void setInvoiceDao(InvoiceDao invoiceDao) {

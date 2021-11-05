@@ -24,7 +24,7 @@ public class CoreSvcController {
     }
 
     @RequestMapping(value = "/invoices/cities/alert", method = RequestMethod.GET)
-    public ResponseEntity<?> getalertCities() throws Exception {
+    public ResponseEntity<?> getAlertCities() throws Exception {
         return ResponseEntity.ok(coreDbService.getAlertCitiesCount());
     }
     @RequestMapping(value = "/invoices/cities", method = RequestMethod.GET)
@@ -36,10 +36,14 @@ public class CoreSvcController {
     public ResponseEntity<?> getCityRules(@PathVariable String cityShort) {
         return ResponseEntity.ok(coreDbService.getCityRules(cityShort));
     }
+    @RequestMapping(value = "/invoices/rules/{cityShort}/{evaluator}", method = RequestMethod.GET)
+    public ResponseEntity<?> getCityRulesInvoices(@PathVariable String cityShort,@PathVariable String evaluator) {
+        return ResponseEntity.ok(coreDbService.getCityRuleCompanies(cityShort, evaluator));
+    }
 
-    @RequestMapping(value = "/invoices/{cityShort}/{evaluator}", method = RequestMethod.GET)
-    public ResponseEntity<?> getCityRuleInvoices(@PathVariable String cityShort, @PathVariable String evaluator) {
-        return ResponseEntity.ok(coreDbService.getCityRuleInvoices(cityShort, evaluator));
+    @RequestMapping(value = "/invoices/{cityShort}/{evaluator}/{companyId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getCityRuleCompanyInvoices(@PathVariable String cityShort, @PathVariable String evaluator, @PathVariable long companyId) {
+        return ResponseEntity.ok(coreDbService.getCityRuleInvoices(cityShort, evaluator,companyId));
     }
 
     @RequestMapping(value = "/invoices/company/{companyId}", method = RequestMethod.GET)

@@ -1,6 +1,7 @@
 package com.xzacharb.coresvc.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.xzacharb.coresvc.model.dao.Contractor;
 import com.xzacharb.coresvc.model.dao.LegalForm;
 
 import javax.persistence.*;

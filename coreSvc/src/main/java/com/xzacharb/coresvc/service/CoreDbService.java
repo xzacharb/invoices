@@ -1,6 +1,6 @@
 package com.xzacharb.coresvc.service;
 
-import com.xzacharb.coresvc.model.dto.CityCount;
+import com.xzacharb.coresvc.model.dto.InfoData;
 import com.xzacharb.coresvc.model.dto.RuleCount;
 import com.xzacharb.coresvc.model.dao.Process;
 import com.xzacharb.coresvc.model.dto.InvoiceData;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class CoreDbService {
-    // static String QUERY_ISSUES_PER_CITY = "select distinct a from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id where a.city = ?1";
     private static String QUERY_RULES_PER_CITY = "select new com.xzacharb.coresvc.model.dto.RuleCount(r.evaluator_name,a.city.city_name,a.city.city_short,r.description,r.evaluatorNameShort, count(a)) from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id where a.city = ?1 group by r.evaluator_name, r.description, r.evaluatorNameShort order by count(r) desc";
-    private static String QUERY_INVOICE_PER_RULE_CITY = "select distinct a from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id where a.city.city_short = ?1 and r.evaluatorNameShort= ?2";
-    private static String QUERY_ISSUES_PER_CITY_COUNT = "select new com.xzacharb.coresvc.model.dto.CityCount(a.city.city_name,a.city.city_short, count(a)) from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id group by a.city order by count(a) desc";
+    private static String QUERY_COMPANIES_PER_CITY_RULE = "select new com.xzacharb.coresvc.model.dto.InfoData(c.name, c.id, count(c)) from EvaluatedResult er join InvoiceDao a on er.invoiceDao = a.id join Contractor c on a.contractor = c.id where a.city = ?1 and er.evaluatorNameShort = ?2 group by c.id order by count(c) desc";
+    private static String QUERY_INVOICE_PER_RULE_CITY = "select distinct a from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id where a.city.city_short = ?1 and r.evaluatorNameShort= ?2 and a.contractor.id = ?3";
+    private static String QUERY_ISSUES_PER_CITY_COUNT = "select new com.xzacharb.coresvc.model.dto.InfoData(a.city.city_name,a.city.city_short, count(a)) from InvoiceDao a join EvaluatedResult r on r.invoiceDao = a.id  group by a.city order by count(a) desc";
 
     @Autowired
     EvaluationService evaluationService;
@@ -67,10 +67,10 @@ public class CoreDbService {
      *
      * @return
      */
-    public final List<CityCount> getCitiesCount() {
-        List<CityCount> cityCounts = new ArrayList<>();
+    public final List<InfoData> getCitiesCount() {
+        List<InfoData> cityCounts = new ArrayList<>();
         for (City city : cityRepo.findAll()) {
-            cityCounts.add(new CityCount(city.getCity_name(), city.getCity_short(), 0l));
+            cityCounts.add(new InfoData(city.getCity_name(), city.getCity_short(), 0l));
         }
         return cityCounts;
     }
@@ -80,8 +80,8 @@ public class CoreDbService {
      *
      * @return
      */
-    public final List<CityCount> getAlertCitiesCount() {
-        TypedQuery query = em.createQuery(QUERY_ISSUES_PER_CITY_COUNT, CityCount.class);
+    public final List<InfoData> getAlertCitiesCount() {
+        TypedQuery query = em.createQuery(QUERY_ISSUES_PER_CITY_COUNT, InfoData.class);
         return query.getResultList();
     }
 
@@ -123,7 +123,7 @@ public class CoreDbService {
      * @param evaluatorNameShort evaluatorName
      * @return List<InvoiceData>
      */
-    public final List<InvoiceData> getCityRuleInvoices(String cityShort, String evaluatorNameShort) {
+    public final List<InvoiceData> getCityRuleInvoices(String cityShort, String evaluatorNameShort,long companyId) {
         City city = cityRepo.findById(cityShort).orElse(null);
         if (city == null)
             return new ArrayList<InvoiceData>();
@@ -131,6 +131,7 @@ public class CoreDbService {
         TypedQuery query = em.createQuery(QUERY_INVOICE_PER_RULE_CITY, InvoiceDao.class);
         query.setParameter(1, cityShort);
         query.setParameter(2, evaluatorNameShort);
+        query.setParameter(3, companyId);
         List<InvoiceData> resultList = ((List<InvoiceDao>) query.getResultList())
                 .stream().map(
                         invoiceDao -> new InvoiceData(invoiceDao)
@@ -150,6 +151,22 @@ public class CoreDbService {
             return new ArrayList<RuleCount>();
         TypedQuery query = em.createQuery(QUERY_RULES_PER_CITY, RuleCount.class);
         query.setParameter(1, city);
+
+        return query.getResultList();
+    }
+    /**
+     * Get list of companies data for city and rule name
+     *
+     * @param cityShort cityShort
+     * @return List<EvaluatedResultData>
+     */
+    public final List<InfoData> getCityRuleCompanies(String cityShort, String ruleNameShort) {
+        City city = cityRepo.findById(cityShort).orElse(null);
+        if (city == null)
+            return new ArrayList<InfoData>();
+        TypedQuery query = em.createQuery(QUERY_COMPANIES_PER_CITY_RULE, InfoData.class);
+        query.setParameter(1, city);
+        query.setParameter(2, ruleNameShort);
 
         return query.getResultList();
     }

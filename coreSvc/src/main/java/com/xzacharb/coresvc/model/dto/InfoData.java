@@ -2,31 +2,36 @@ package com.xzacharb.coresvc.model.dto;
 
 import com.xzacharb.coresvc.model.dao.City;
 
-public class CityCount {
-    private final String city;
-    private final String cityShort;
+public class InfoData {
+    private final String name;
+    private final String identifier;
     private final long count;
 
-    public CityCount(String city,String cityShort, long count) {
-        this.city = city;
-        this.cityShort = cityShort;
+    public InfoData(String name, String identifier, long count) {
+        this.name = name;
+        this.identifier = identifier;
         this.count = count;
     }
-    public CityCount(City city, long count) {
-        this.city = city.getCity_name();
-        this.cityShort = city.getCity_short();
+    public InfoData(String name, long identifier, long count) {
+        this.name = name;
+        this.identifier = String.valueOf(identifier);
+        this.count = count;
+    }
+    public InfoData(City name, long count) {
+        this.name = name.getCity_name();
+        this.identifier = name.getCity_short();
         this.count = count;
     }
 
-    public String getCity() {
-        return city;
+    public String getName() {
+        return name;
     }
 
     public long getCount() {
         return count;
     }
 
-    public String getCityShort() {
-        return cityShort;
+    public String getIdentifier() {
+        return identifier;
     }
 }
