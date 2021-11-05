@@ -15,7 +15,6 @@ app = Flask(__name__)
 @app.route('/invoices/ke')
 def runproces():
     kosiceShortCut="ke"
-    #invoiceParserKosice.addDataToKafka()
     print("run proces")
     result = invoiceParserKosice.runProces(kosiceShortCut)
     return result
