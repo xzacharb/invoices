@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Invoice } from '../objects/invoice';
 import { Rule } from '../objects/rule';
-import { City } from '../objects/city';
+import { InfoData } from '../objects/infoData';
 import { Person } from '../objects/person';
 import { Proces } from '../objects/proces';
 import { Company } from '../objects/company';
@@ -37,15 +37,18 @@ export class InvoiceService {
     return this.http.get<Person>(this.inveicesBase+"people/"+personId);
   }
 
-  public findCityInvoices(ruleName:string, city:string): Observable<Invoice[]> {
-    return this.http.get<Invoice[]>(this.inveicesBase+city+"/"+ruleName);
+  public findCityInvoices(ruleName:string, city:string, companyId:string): Observable<Invoice[]> {
+    return this.http.get<Invoice[]>(this.inveicesBase+city+"/"+ruleName+"/"+companyId);
+  }
+  public findCompanyInfo(ruleName:string, city:string): Observable<InfoData[]> {
+    return this.http.get<InfoData[]>(this.inveicesRules+city+"/"+ruleName);
   }
   
-  public findAllAlertCities(): Observable<City[]> {
-    return this.http.get<City[]>(this.inveicesBase+"cities/alert");
+  public findAllAlertCities(): Observable<InfoData[]> {
+    return this.http.get<InfoData[]>(this.inveicesBase+"cities/alert");
   }
-  public findAllCities(): Observable<City[]> {
-    return this.http.get<City[]>(this.inveicesBase+"cities");
+  public findAllCities(): Observable<InfoData[]> {
+    return this.http.get<InfoData[]>(this.inveicesBase+"cities");
   }
   public findAllProcesses(): Observable<Proces[]> {
     return this.http.get<Proces[]>(this.processes+"history");

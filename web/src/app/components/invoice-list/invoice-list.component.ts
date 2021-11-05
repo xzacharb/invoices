@@ -25,7 +25,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   ngOnInit() {
-	  this.invoiceService.findCityInvoices(this.route.snapshot.paramMap.get('ruleName'),this.route.snapshot.paramMap.get('city')).subscribe(data => {
+	  this.invoiceService.findCityInvoices(this.route.snapshot.paramMap.get('ruleName'),this.route.snapshot.paramMap.get('city'),this.route.snapshot.paramMap.get('company')).subscribe(data => {
       this.invoices = data;
     });
   }

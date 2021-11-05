@@ -1,0 +1,14 @@
+<div class="card" style="width: 60%;">
+  <div class="card-header">
+   <span>Dodávatelia</span> 
+  
+  </div>	
+	<ul class="list-group">
+	  <a *ngFor="let company of companies" routerLink="/invoices/{{ruleNameShort}}/{{cityShort}}/{{company.identifier}}" class="text-secondary">
+		  <li class="list-group-item d-flex justify-content-between align-items-center">
+			{{ company.name }}
+			<span class="badge badge-primary badge-pill">{{ company.count}}</span>
+		  </li>
+	  </a>
+	</ul>
+</div>

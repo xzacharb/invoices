@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { City } from '../../objects/city';
+import { InfoData } from '../../objects/infoData';
 import { InvoiceService } from '../../services/invoice-service.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { InvoiceService } from '../../services/invoice-service.service';
 })
 export class CitiesListComponent implements OnInit {
 
-  cities: City[];
+  cities: InfoData[];
   constructor(private invoiceService: InvoiceService) {
   }
 

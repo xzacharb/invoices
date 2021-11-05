@@ -18,7 +18,7 @@
 	  <div class="form-group">
 		<label for="exampleFormControlSelect1">Proces</label>
 		<select class="form-control" id="exampleFormControlSelect1" formControlName="name">
-		  <option value="detection">Aktualizácia</option>
+		  <option value="detection">Dolovanie dát</option>
 		  <option value="evaluation">Vyhodnotenie</option>
 		</select>
 	  </div>
@@ -26,7 +26,7 @@
 		<label for="exampleFormControlSelect1">Mesto</label>
 		<select class="form-control" id="exampleFormControlSelect1" formControlName="city">
 		  <option value="all">Všetky mestá</option>
-		  <option *ngFor="let city of cities" value="{{city.cityShort}}">{{ city.city }}</option>
+		  <option *ngFor="let city of cities" value="{{city.identifier}}">{{ city.name }}</option>
 		</select>
 	  </div>
 		<button type="submit" class="btn btn-primary mb-2">Spusti</button>

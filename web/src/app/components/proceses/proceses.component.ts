@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { InvoiceService } from '../../services/invoice-service.service';
-import { City } from '../../objects/city';
+import { InfoData } from '../../objects/infoData';
 import { Proces } from '../../objects/proces';
 
 
@@ -12,7 +12,7 @@ import { Proces } from '../../objects/proces';
 })
 export class ProcesesComponent implements OnInit {
   processForm: any;
-  cities: City[];
+  cities: InfoData[];
   processes: Proces[];
   runProceessFrom:Boolean=false;
   showProcesses:Boolean=false;

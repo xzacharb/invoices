@@ -10,6 +10,8 @@ import { CitiesListComponent } from './components/cities-list/cities-list.compon
 import { RulesListComponent } from './components/rules-list/rules-list.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ProcesesComponent } from './components/proceses/proceses.component';
+import { HomeComponent } from './components/home/home.component';
+import { CompaniesComponent } from './components/companies/companies.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { ProcesesComponent } from './components/proceses/proceses.component';
     CitiesListComponent,
     RulesListComponent,
     StatisticsComponent,
-    ProcesesComponent
+    ProcesesComponent,
+    HomeComponent,
+    CompaniesComponent
   ],
   imports: [
     BrowserModule,

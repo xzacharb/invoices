@@ -1,12 +1,12 @@
-<div class="card" style="width: 60%;">
+<div class="card col-md-10" >
   <div class="card-header">
    <span> Mestá</span> 
   
   </div>	
 	<ul class="list-group">
-	  <a *ngFor="let city of cities" routerLink="/rules/{{city.cityShort}}" class="text-secondary">
+	  <a *ngFor="let city of cities" routerLink="/rules/{{city.identifier}}" class="text-secondary">
 		  <li class="list-group-item d-flex justify-content-between align-items-center">
-			{{ city.city }}
+			{{ city.name }}
 			<span class="badge badge-primary badge-pill">{{ city.count}}</span>
 		  </li>
 	  </a>
