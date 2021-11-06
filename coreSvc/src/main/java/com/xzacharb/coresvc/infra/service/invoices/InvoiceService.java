@@ -1,16 +1,13 @@
 package com.xzacharb.coresvc.infra.service.invoices;
 
-import com.xzacharb.coresvc.impl.model.dao.*;
+import com.xzacharb.coresvc.impl.model.dao.Contractor;
 import com.xzacharb.coresvc.impl.model.dao.Process;
 import com.xzacharb.coresvc.impl.model.dto.InfoData;
 import com.xzacharb.coresvc.impl.model.dto.InvoiceData;
 import com.xzacharb.coresvc.impl.model.dto.ManagementPerson;
 import com.xzacharb.coresvc.impl.model.dto.RuleCount;
 
-import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public interface InvoiceService {
     /**

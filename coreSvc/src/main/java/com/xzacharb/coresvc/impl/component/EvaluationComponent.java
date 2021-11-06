@@ -5,7 +5,6 @@ import com.xzacharb.coresvc.impl.model.dao.InvoiceDao;
 import com.xzacharb.coresvc.infra.component.Rules;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 
 
 @Component
-public class EvaluationComponent  implements Rules {
+public class EvaluationComponent implements Rules {
 
     @Value("${invoices.threshold.sum}")
     private int sumThreshold;

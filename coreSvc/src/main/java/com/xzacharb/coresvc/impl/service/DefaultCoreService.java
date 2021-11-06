@@ -1,8 +1,8 @@
 package com.xzacharb.coresvc.impl.service;
 
-import com.xzacharb.coresvc.impl.service.invoices.DefaultInvoiceService;
-import com.xzacharb.coresvc.impl.service.process.DefaultProcessesService;
 import com.xzacharb.coresvc.infra.service.CoreService;
+import com.xzacharb.coresvc.infra.service.invoices.InvoiceService;
+import com.xzacharb.coresvc.infra.service.process.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 public class DefaultCoreService implements CoreService {
 
     @Autowired
-    DefaultInvoiceService invoiceService;
+    private InvoiceService invoiceService;
 
     @Autowired
-    private DefaultProcessesService processesService;
+    private ProcessService processesService;
 
     @Override
     public ResponseEntity<?> getAlertCities() {

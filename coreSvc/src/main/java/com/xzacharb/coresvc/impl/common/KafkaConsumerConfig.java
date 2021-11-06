@@ -1,4 +1,4 @@
-package com.xzacharb.coresvc.impl.component.configuration;
+package com.xzacharb.coresvc.impl.common;
 
 import com.xzacharb.coresvc.impl.model.dto.EvaluatedResultData;
 import com.xzacharb.coresvc.impl.model.dto.InvoiceDataKafka;

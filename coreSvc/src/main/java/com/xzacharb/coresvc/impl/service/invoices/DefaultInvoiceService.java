@@ -1,6 +1,6 @@
 package com.xzacharb.coresvc.impl.service.invoices;
 
-import com.xzacharb.coresvc.impl.component.composition.RepositoryFacade;
+import com.xzacharb.coresvc.impl.component.RepositoryFacade;
 import com.xzacharb.coresvc.impl.model.dao.*;
 import com.xzacharb.coresvc.impl.model.dao.Process;
 import com.xzacharb.coresvc.impl.model.dto.InfoData;

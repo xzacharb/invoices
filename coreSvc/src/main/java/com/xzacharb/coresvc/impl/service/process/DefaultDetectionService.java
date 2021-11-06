@@ -1,7 +1,7 @@
 package com.xzacharb.coresvc.impl.service.process;
 
-import com.xzacharb.coresvc.impl.component.composition.MicroserviceFacade;
-import com.xzacharb.coresvc.impl.component.composition.RepositoryFacade;
+import com.xzacharb.coresvc.impl.component.MicroserviceFacade;
+import com.xzacharb.coresvc.impl.component.RepositoryFacade;
 import com.xzacharb.coresvc.impl.model.dao.City;
 import com.xzacharb.coresvc.impl.model.dao.Process;
 import com.xzacharb.coresvc.infra.service.process.DetectionService;

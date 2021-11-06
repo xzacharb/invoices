@@ -1,12 +1,13 @@
 package com.xzacharb.coresvc.impl.service.process;
 
 import com.xzacharb.coresvc.impl.component.EvaluationComponent;
-import com.xzacharb.coresvc.impl.component.composition.RepositoryFacade;
+import com.xzacharb.coresvc.impl.component.RepositoryFacade;
 import com.xzacharb.coresvc.impl.model.dao.City;
 import com.xzacharb.coresvc.impl.model.dao.Contractor;
 import com.xzacharb.coresvc.impl.model.dao.EvaluatedResult;
 import com.xzacharb.coresvc.impl.model.dao.InvoiceDao;
 import com.xzacharb.coresvc.impl.model.dao.Process;
+import com.xzacharb.coresvc.infra.component.Rules;
 import com.xzacharb.coresvc.infra.service.process.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import java.util.List;
 public class DefaultEvaluationService implements EvaluationService {
 
     @Autowired
-    private EvaluationComponent evaluationComponent;
+    private Rules evaluationComponent;
     @Autowired
     private RepositoryFacade repository;
 

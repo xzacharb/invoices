@@ -1,5 +1,6 @@
 package com.xzacharb.coresvc.impl.service.microservices;
 
+import com.xzacharb.coresvc.infra.service.microservices.CommunicationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -7,7 +8,7 @@ import java.io.IOException;
 import java.net.*;
 
 @Service
-public class CommunicationService {
+public class DefaultCommunicationService implements CommunicationService {
     private String INVOICES = "/invoices/";
     @Value("${invoices.services.ws}")
     private String webScrapingServiceURL;

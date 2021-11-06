@@ -1,6 +1,6 @@
-package com.xzacharb.coresvc.impl.service.microservices.kafka;
+package com.xzacharb.coresvc.impl.service.microservices;
 
-import com.xzacharb.coresvc.impl.component.configuration.KafkaConsumerConfig;
+import com.xzacharb.coresvc.impl.common.KafkaConsumerConfig;
 import com.xzacharb.coresvc.impl.model.dto.EvaluatedResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;

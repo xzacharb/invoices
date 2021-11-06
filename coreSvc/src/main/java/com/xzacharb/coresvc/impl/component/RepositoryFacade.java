@@ -1,4 +1,4 @@
-package com.xzacharb.coresvc.impl.component.composition;
+package com.xzacharb.coresvc.impl.component;
 
 import com.xzacharb.coresvc.infra.model.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
