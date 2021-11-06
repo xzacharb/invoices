@@ -1,17 +1,17 @@
 package com.xzacharb.coresvc;
 
-import com.xzacharb.coresvc.model.dao.*;
-import com.xzacharb.coresvc.model.dao.Process;
-import com.xzacharb.coresvc.service.CoreDbService;
+import com.xzacharb.coresvc.impl.component.composition.RepositoryFacade;
+import com.xzacharb.coresvc.impl.model.dao.*;
+import com.xzacharb.coresvc.impl.model.dao.Process;
+import com.xzacharb.coresvc.impl.service.DefaultCoreService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.EnableKafka;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 @SpringBootApplication
 @EnableKafka
@@ -20,9 +20,11 @@ public class CoreSvcApplication {
     public static void main(String[] args) {
         SpringApplication.run(CoreSvcApplication.class, args);
     }
+    @Autowired
+    private RepositoryFacade repository;
 
     @Bean
-    public CommandLineRunner sampleData(CoreDbService repository) {
+    public CommandLineRunner sampleData(DefaultCoreService coreDbService) {
         return (args) -> {
             LegalForm lf1 = new LegalForm("lfs1", "Legal form sample 1");
             LegalForm lf2 = new LegalForm("lfs1", "Legal form sample 2");
