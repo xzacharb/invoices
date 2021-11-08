@@ -2,7 +2,7 @@ package com.xzacharb.coresvc.impl.rules;
 
 import com.xzacharb.coresvc.impl.model.dao.InvoiceDao;
 import com.xzacharb.coresvc.impl.rules.factories.ListRuleFactory;
-import com.xzacharb.coresvc.infra.rules.Rule;
+import com.xzacharb.coresvc.infra.rules.EvaluableRule;
 import com.xzacharb.coresvc.infra.rules.RuleFactory;
 import org.junit.jupiter.api.Test;
 
@@ -29,8 +29,8 @@ public void test1(){
     List<InvoiceDao> InvoiceDao = Arrays.asList(i1,i2,i3,i4,i5,i6);
     List<Integer> t1 = Arrays.asList(1,20000,500,4,5);
     RuleFactory rf = new ListRuleFactory();
-    Rule r1 = rf.createRule("PriceBetweenThresholdsSumOverThreshold",t1);
-    Rule r2 = rf.createRule("PriceOverThresholdSumOverThresholdCountOverThreshold",t1);
+    EvaluableRule r1 = rf.createRule("PriceBetweenThresholdsSumOverThreshold",t1);
+    EvaluableRule r2 = rf.createRule("PriceOverThresholdSumOverThresholdCountOverThreshold",t1);
 
     System.out.println(r1.execute(InvoiceDao).size());
     System.out.println(r1.description());

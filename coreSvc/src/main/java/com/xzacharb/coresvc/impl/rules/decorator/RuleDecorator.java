@@ -1,16 +1,16 @@
 package com.xzacharb.coresvc.impl.rules.decorator;
 
-import com.xzacharb.coresvc.infra.rules.Rule;
+import com.xzacharb.coresvc.infra.rules.EvaluableRule;
 
 import java.util.List;
 
-public abstract class RuleDecorator implements Rule {
+public abstract class RuleDecorator implements EvaluableRule {
     String description;
     int score;
-    Rule ruleDecorator;
+    EvaluableRule ruleDecorator;
     List<Integer> thresholds;
 
-    public RuleDecorator(Rule ruleDecorator, List<Integer> threshold) {
+    public RuleDecorator(EvaluableRule ruleDecorator, List<Integer> threshold) {
         this.ruleDecorator = ruleDecorator;
         this.thresholds = threshold;
         this.description = "";

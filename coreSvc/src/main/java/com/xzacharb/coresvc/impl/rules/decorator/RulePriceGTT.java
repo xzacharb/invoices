@@ -1,8 +1,7 @@
 package com.xzacharb.coresvc.impl.rules.decorator;
 
 import com.xzacharb.coresvc.impl.model.dao.InvoiceDao;
-import com.xzacharb.coresvc.impl.model.dto.InvoiceData;
-import com.xzacharb.coresvc.infra.rules.Rule;
+import com.xzacharb.coresvc.infra.rules.EvaluableRule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class RulePriceGTT extends RuleDecorator {
     private static int BASE_SCORE = 2;
-    public RulePriceGTT(Rule ruleDecorator, List<Integer> thresholds) {
+    public RulePriceGTT(EvaluableRule ruleDecorator, List<Integer> thresholds) {
         super(ruleDecorator, thresholds);
     }
 

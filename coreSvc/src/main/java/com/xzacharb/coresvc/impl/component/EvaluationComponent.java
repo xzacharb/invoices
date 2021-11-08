@@ -2,8 +2,7 @@ package com.xzacharb.coresvc.impl.component;
 
 import com.xzacharb.coresvc.impl.model.dao.EvaluatedResult;
 import com.xzacharb.coresvc.impl.model.dao.InvoiceDao;
-import com.xzacharb.coresvc.impl.rules.factories.ListRuleFactory;
-import com.xzacharb.coresvc.infra.rules.Rule;
+import com.xzacharb.coresvc.infra.rules.EvaluableRule;
 import com.xzacharb.coresvc.infra.rules.RuleFactory;
 import com.xzacharb.coresvc.infra.rules.Rules;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,13 @@ public class EvaluationComponent implements Rules {
     @Value("${invoices.threshold.min-invoice-count}")
     private int minInvoiceCountThreshold;
 
+    /*
+    invoices.threshold.sum = 6000
+    invoices.threshold.min-price = 50
+    invoices.threshold.max-price = 10000
+    invoices.threshold.min-invoice-count = 20
+     */
+
     @Autowired
     RuleFactory ruleFactory;
 
@@ -48,7 +54,7 @@ public class EvaluationComponent implements Rules {
     @Override
     public List<EvaluatedResult> filteredSumOverThreshold(List<InvoiceDao> invoices) {
         List<Integer> thresholds = Arrays.asList(minPriceThreshold, maxPriceThreshold, sumThreshold);
-        Rule rule = ruleFactory.createRule("PriceBetweenThresholdsSumOverThreshold", thresholds);
+        EvaluableRule rule = ruleFactory.createRule("PriceBetweenThresholdsSumOverThreshold", thresholds);
         List<InvoiceDao> filtered = rule.execute(invoices);
         if (filtered.isEmpty())
             return new ArrayList<>();
@@ -61,7 +67,7 @@ public class EvaluationComponent implements Rules {
     @Override
     public List<EvaluatedResult> totalSumOverThreshold(List<InvoiceDao> invoices) {
         List<Integer> thresholds = Arrays.asList(minPriceThreshold, sumThreshold, minInvoiceCountThreshold);
-        Rule rule = ruleFactory.createRule("PriceOverThresholdSumOverThresholdCountOverThreshold", thresholds);
+        EvaluableRule rule = ruleFactory.createRule("PriceOverThresholdSumOverThresholdCountOverThreshold", thresholds);
         List<InvoiceDao> filtered = rule.execute(invoices);
         if (filtered.isEmpty())
             return new ArrayList<>();
