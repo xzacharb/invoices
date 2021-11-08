@@ -21,47 +21,47 @@ public class CoreSvcController implements CoreController {
 
     @RequestMapping(value = "/invoices/cities/alert", method = RequestMethod.GET)
     public ResponseEntity<?> getAlertCities() {
-        return ResponseEntity.ok(coreDbService.getAlertCities());
+        return coreDbService.getAlertCities();
     }
 
     @RequestMapping(value = "/invoices/cities", method = RequestMethod.GET)
     public ResponseEntity<?> getOverview() {
-        return ResponseEntity.ok(coreDbService.getOverview());
+        return coreDbService.getOverview();
     }
 
     @RequestMapping(value = "/invoices/rules/{cityShort}", method = RequestMethod.GET)
     public ResponseEntity<?> getCityRules(@PathVariable String cityShort) {
-        return ResponseEntity.ok(coreDbService.getCityRules(cityShort));
+        return coreDbService.getCityRules(cityShort);
     }
 
     @RequestMapping(value = "/invoices/rules/{cityShort}/{evaluator}", method = RequestMethod.GET)
     public ResponseEntity<?> getCityRulesInvoices(@PathVariable String cityShort, @PathVariable String evaluator) {
-        return ResponseEntity.ok(coreDbService.getCityRulesInvoices(cityShort, evaluator));
+        return coreDbService.getCityRulesInvoices(cityShort, evaluator);
     }
 
     @RequestMapping(value = "/invoices/{cityShort}/{evaluator}/{companyId}", method = RequestMethod.GET)
     public ResponseEntity<?> getCityRuleCompanyInvoices(@PathVariable String cityShort, @PathVariable String evaluator, @PathVariable long companyId) {
-        return ResponseEntity.ok(coreDbService.getCityRuleCompanyInvoices(cityShort, evaluator, companyId));
+        return coreDbService.getCityRuleCompanyInvoices(cityShort, evaluator, companyId);
     }
 
     @RequestMapping(value = "/invoices/company/{companyId}", method = RequestMethod.GET)
     public ResponseEntity<?> getContractorData(@PathVariable long companyId) {
-        return ResponseEntity.ok(coreDbService.getContractorData(companyId));
+        return coreDbService.getContractorData(companyId);
     }
 
     @RequestMapping(value = "/invoices/company/people/{companyId}", method = RequestMethod.GET)
     public ResponseEntity<?> getCompanyPeople(@PathVariable long companyId) {
-        return ResponseEntity.ok(coreDbService.getCompanyPeople(companyId));
+        return coreDbService.getCompanyPeople(companyId);
     }
 
     @RequestMapping(value = "/invoices/people/{personId}", method = RequestMethod.GET)
     public ResponseEntity<?> getPersonById(@PathVariable long personId) {
-        return ResponseEntity.ok(coreDbService.getPersonById(personId));
+        return coreDbService.getPersonById(personId);
     }
 
     @RequestMapping(value = "/processes/history", method = RequestMethod.GET)
     public ResponseEntity<?> getProcessHistory() {
-        return ResponseEntity.ok(coreDbService.getProcessHistory());
+        return coreDbService.getProcessHistory();
     }
 
     @RequestMapping(value = "/processes/detection/{cityShort}", method = RequestMethod.GET)

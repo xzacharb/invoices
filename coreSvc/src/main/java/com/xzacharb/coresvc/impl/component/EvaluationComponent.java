@@ -2,11 +2,16 @@ package com.xzacharb.coresvc.impl.component;
 
 import com.xzacharb.coresvc.impl.model.dao.EvaluatedResult;
 import com.xzacharb.coresvc.impl.model.dao.InvoiceDao;
-import com.xzacharb.coresvc.infra.component.Rules;
+import com.xzacharb.coresvc.impl.rules.factories.ListRuleFactory;
+import com.xzacharb.coresvc.infra.rules.Rule;
+import com.xzacharb.coresvc.infra.rules.RuleFactory;
+import com.xzacharb.coresvc.infra.rules.Rules;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +27,9 @@ public class EvaluationComponent implements Rules {
     private int maxPriceThreshold;
     @Value("${invoices.threshold.min-invoice-count}")
     private int minInvoiceCountThreshold;
+
+    @Autowired
+    RuleFactory ruleFactory;
 
     /**
      * create list of EvaluatedResult for each invoice
@@ -39,32 +47,28 @@ public class EvaluationComponent implements Rules {
 
     @Override
     public List<EvaluatedResult> filteredSumOverThreshold(List<InvoiceDao> invoices) {
-        List<InvoiceDao> filtered = invoices.stream()
-                .filter(invoice ->
-                        invoice.getPrice() >= minPriceThreshold && invoice.getPrice() <= maxPriceThreshold
-                ).collect(Collectors.toList());
-        if (filtered.size() >= minInvoiceCountThreshold) {
-            int sum = 0;
-            for (InvoiceDao invoiceDao : filtered)
-                sum += invoiceDao.getPrice();
-            if (sum >= sumThreshold)
-                return createEvaluatedResultDao(filtered, "20", "Suma faktury v rozmedzi thresholdov s prekrocenim celkovej sumy",
-                        "Suma faktury medzi: " + minPriceThreshold + " a " + maxPriceThreshold + "\n" +
-                                "Pocet faktur presiahol: " + minInvoiceCountThreshold + " \n" +
-                                "Celkova suma faktur presiahla: " + sumThreshold);
-        }
+        List<Integer> thresholds = Arrays.asList(minPriceThreshold, maxPriceThreshold, sumThreshold);
+        Rule rule = ruleFactory.createRule("PriceBetweenThresholdsSumOverThreshold", thresholds);
+        List<InvoiceDao> filtered = rule.execute(invoices);
+        if (filtered.isEmpty())
+            return new ArrayList<>();
+        return createEvaluatedResultDao(filtered, rule.score() + "", "Suma faktury v rozmedzi thresholdov s prekrocenim celkovej sumy",
+                "Suma faktury medzi: " + minPriceThreshold + " a " + maxPriceThreshold + "\n" +
+                        "Celkova suma faktur presiahla: " + sumThreshold);
 
-        return new ArrayList<>();
     }
 
     @Override
     public List<EvaluatedResult> totalSumOverThreshold(List<InvoiceDao> invoices) {
-        int sum = 0;
-        for (InvoiceDao invoiceDao : invoices)
-            sum += invoiceDao.getPrice();
-        if (sum >= sumThreshold)
-            return createEvaluatedResultDao(invoices, "10", "Celkova suma vo vsetkych fakturach presiahla threshold",
-                    "Celkova suma faktur presiahla: " + sumThreshold);
-        return new ArrayList<>();
+        List<Integer> thresholds = Arrays.asList(minPriceThreshold, sumThreshold, minInvoiceCountThreshold);
+        Rule rule = ruleFactory.createRule("PriceOverThresholdSumOverThresholdCountOverThreshold", thresholds);
+        List<InvoiceDao> filtered = rule.execute(invoices);
+        if (filtered.isEmpty())
+            return new ArrayList<>();
+        return createEvaluatedResultDao(filtered, rule.score() + "", "Ceny faktur, Suma a pocet faktur prekrocili thresholdy",
+                "Suma faktury prekrocila: " + minPriceThreshold + "\n" +
+                        "Celkova suma faktur presiahla: " + sumThreshold + "\n" +
+                        "Pocet faktur presiahol: " + minInvoiceCountThreshold);
+
     }
 }

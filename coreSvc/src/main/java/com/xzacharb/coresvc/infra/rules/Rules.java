@@ -1,4 +1,4 @@
-package com.xzacharb.coresvc.infra.component;
+package com.xzacharb.coresvc.infra.rules;
 
 import com.xzacharb.coresvc.impl.model.dao.EvaluatedResult;
 import com.xzacharb.coresvc.impl.model.dao.InvoiceDao;
