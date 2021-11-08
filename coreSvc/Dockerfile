@@ -10,4 +10,4 @@ WORKDIR /app
 COPY --from=build /app/target/core-svc-0.0.1-SNAPSHOT.jar core-svc.jar
 EXPOSE 8080
 ENTRYPOINT ["sh", "-c"]
-CMD ["java -jar app.jar"]
+CMD ["java -jar core-svc.jar"]
