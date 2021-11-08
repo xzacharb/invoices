@@ -1,0 +1,10 @@
+Flask==1.1.1
+json5==0.9.1
+jsonschema==3.2.0
+pandas==1.0.1
+beautifulsoup4==4.8.2
+selenium==4.0.0
+kafka-python==2.0.2
+unicodecsv==0.14.1
+unicodedata2==13.0.0.post2
+python-dateutil==2.8.1
