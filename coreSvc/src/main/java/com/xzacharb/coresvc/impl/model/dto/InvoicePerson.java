@@ -1,7 +1,5 @@
 package com.xzacharb.coresvc.impl.model.dto;
 
-import com.sun.org.apache.xpath.internal.operations.String;
-
 public class InvoicePerson {
     String city;
 
